@@ -1,112 +1,136 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, {Component} from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import TestScreen from './Screens/Test';
+import LoginScreen from './Screens/LoginScreen';
+import RegisterScreen from './Screens/RegisterScreen';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const Stack = createStackNavigator();
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Tab = createMaterialBottomTabNavigator();
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+const RootStack = createStackNavigator();
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+export default class App extends Component {
+  constructor() {
+    super();
+  }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  Menu = () => {
+    return (
+      <Tab.Navigator
+        initialRouteName="TestScreen"
+        activeColor="#ff0000"
+        inactiveColor="#fff"
+        barStyle={{backgroundColor: '#2d2e30'}}
+        activeTintColor="#ff0000">
+        <Tab.Screen
+          name="About"
+          unmountOnBlur={true}
+          component={TestScreen}
+          activeTintColor="#ff0000"
+          options={{
+            tabBarLabel: 'O nas',
+            unmountOnBlur: true,
+            tabBarIcon: ({focused}) => (
+              <Icon
+                name="information"
+                size={25}
+                color={focused ? '#ff0000' : 'white'}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Car-List"
+          component={TestScreen}
+          unmountOnBlur={true}
+          options={{
+            tabBarLabel: 'aaaaaa',
+            unmountOnBlur: true,
+            tabBarIcon: ({focused}) => (
+              <Icon
+                name="car"
+                size={25}
+                color={focused ? '#ff0000' : 'white'}
+              />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Reservations"
+          unmountOnBlur={true}
+          component={TestScreen}
+          options={{
+            tabBarLabel: 'bbbbb',
+            unmountOnBlur: true,
+            tabBarIcon: ({focused}) => (
+              <Icon
+                name="list"
+                size={25}
+                color={focused ? '#ff0000' : 'white'}
+              />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    );
   };
 
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+  Navi = () => {
+    return (
+      <Stack.Navigator
+        unmountOnBlur={true}
+        screenOptions={{
+          headerShown: false,
+          unmountOnBlur: true,
+        }}
+        initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
+      </Stack.Navigator>
+    );
+  };
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+  RootStackScreen = () => {
+    return (
+      <RootStack.Navigator headerMode="none">
+        <RootStack.Screen
+          name="App"
+          component={this.Navi}
+          unmountOnBlur={true}
+          options={{
+            animationEnabled: false,
+            unmountOnBlur: true,
+          }}
+        />
+        <RootStack.Screen
+          name="Auth"
+          component={this.Menu}
+          unmountOnBlur={true}
+          options={{
+            animationEnabled: false,
+            headerShown: true,
+            unmountOnBlur: true,
+          }}
+        />
+      </RootStack.Navigator>
+    );
+  };
 
-export default App;
+  render() {
+    return <NavigationContainer>{this.RootStackScreen()}</NavigationContainer>;
+  }
+}
