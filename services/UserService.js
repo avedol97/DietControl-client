@@ -9,7 +9,7 @@ export default class UserService extends Component {
   }
 
   login = async (email, password) => {
-    return await fetch(this.baseUrl + 'login', {
+    return await fetch(this.baseUrl + 'guest/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -20,23 +20,20 @@ export default class UserService extends Component {
       }),
     })
       .then(response => response.json())
-      // .then(async data => {
-      //   if (data) {
-      //     AsyncStorage.setItem('TOKEN', data.token);
-      //     AsyncStorage.setItem('userId', JSON.stringify(data.user));
-      //     console.log(
-      //       'test service ' + (await AsyncStorage.getItem('user_id')),
-      //     );
-      //     return data;
-      //   }
-      // })
+      .then(async data => {
+        if (data) {
+          AsyncStorage.setItem('TOKEN', data.token);
+          AsyncStorage.setItem('userId', JSON.stringify(data.user));
+          return data;
+        }
+      })
       .catch(error => {
         console.log('POST error: ' + error);
       });
   };
 
   signup = async (email, password) => {
-    await fetch(this.baseUrl + 'signup', {
+    await fetch(this.baseUrl + 'guest/signup', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

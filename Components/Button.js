@@ -11,15 +11,17 @@ export default function Button(props) {
 
 const styles = StyleSheet.create({
   button: {
-    borderWidth: 2,
-    borderColor: 'white',
-    paddingLeft: 15,
-    paddingRight: 15,
+    margin: 30,
+    borderRadius: 15,
+    paddingLeft: 30,
+    paddingRight: 30,
     paddingTop: 10,
     paddingBottom: 10,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: '#708090',
   },
   button__text: {
     color: 'white',
+    textAlign: 'center',
+    fontSize: 30,
   },
 });

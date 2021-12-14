@@ -2,8 +2,12 @@ import React, {Component} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
-import TestScreen from './Screens/Test';
+import MissionScreen from './Screens/MissionScreen';
 import LoginScreen from './Screens/LoginScreen';
+import StartScreen from './Screens/StartScreen';
+import DayScreen from './Screens/DayScreen';
+import ProductScreen from './Screens/ProductScreen';
+import ResultScreen from './Screens/ResultScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -27,12 +31,12 @@ export default class App extends Component {
         barStyle={{backgroundColor: '#2d2e30'}}
         activeTintColor="#ff0000">
         <Tab.Screen
-          name="About"
+          name="Day"
           unmountOnBlur={true}
-          component={TestScreen}
+          component={DayScreen}
           activeTintColor="#ff0000"
           options={{
-            tabBarLabel: 'O nas',
+            tabBarLabel: 'Dzień',
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
@@ -44,11 +48,11 @@ export default class App extends Component {
           }}
         />
         <Tab.Screen
-          name="Car-List"
-          component={TestScreen}
+          name="Product"
+          component={ProductScreen}
           unmountOnBlur={true}
           options={{
-            tabBarLabel: 'aaaaaa',
+            tabBarLabel: 'Produkt',
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
@@ -60,11 +64,11 @@ export default class App extends Component {
           }}
         />
         <Tab.Screen
-          name="Reservations"
+          name="Result"
           unmountOnBlur={true}
-          component={TestScreen}
+          component={ResultScreen}
           options={{
-            tabBarLabel: 'bbbbb',
+            tabBarLabel: 'Wynik',
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
@@ -87,7 +91,7 @@ export default class App extends Component {
           headerShown: false,
           unmountOnBlur: true,
         }}
-        initialRouteName="Login">
+        initialRouteName="Start">
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -97,6 +101,18 @@ export default class App extends Component {
         <Stack.Screen
           name="Register"
           component={RegisterScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
+        <Stack.Screen
+          name="Start"
+          component={StartScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
+        <Stack.Screen
+          name="Mission"
+          component={MissionScreen}
           unmountOnBlur={true}
           options={{unmountOnBlur: true}}
         />
