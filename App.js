@@ -9,6 +9,7 @@ import DayScreen from './Screens/DayScreen';
 import ProductScreen from './Screens/ProductScreen';
 import ResultScreen from './Screens/ResultScreen';
 import RegisterScreen from './Screens/RegisterScreen';
+import DetailsScreen from './Screens/DetailsScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
@@ -91,7 +92,7 @@ export default class App extends Component {
           headerShown: false,
           unmountOnBlur: true,
         }}
-        initialRouteName="Start">
+        initialRouteName="Details">
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -107,6 +108,12 @@ export default class App extends Component {
         <Stack.Screen
           name="Start"
           component={StartScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
           unmountOnBlur={true}
           options={{unmountOnBlur: true}}
         />
