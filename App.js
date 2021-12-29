@@ -9,8 +9,9 @@ import DayScreen from './Screens/DayScreen';
 import ProductScreen from './Screens/ProductScreen';
 import ResultScreen from './Screens/ResultScreen';
 import RegisterScreen from './Screens/RegisterScreen';
+import AddMealScreen from './Screens/AddMealScreen';
 import DetailsScreen from './Screens/DetailsScreen';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
 
@@ -41,9 +42,9 @@ export default class App extends Component {
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
-                name="information"
-                size={25}
-                color={focused ? '#ff0000' : 'white'}
+                name="calendar"
+                size={22}
+                color={focused ? '#b70000' : 'white'}
               />
             ),
           }}
@@ -57,9 +58,9 @@ export default class App extends Component {
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
-                name="car"
-                size={25}
-                color={focused ? '#ff0000' : 'white'}
+                name="calculator"
+                size={22}
+                color={focused ? '#b70000' : 'white'}
               />
             ),
           }}
@@ -74,8 +75,8 @@ export default class App extends Component {
             tabBarIcon: ({focused}) => (
               <Icon
                 name="list"
-                size={25}
-                color={focused ? '#ff0000' : 'white'}
+                size={23}
+                color={focused ? '#b70000' : 'white'}
               />
             ),
           }}
@@ -92,7 +93,7 @@ export default class App extends Component {
           headerShown: false,
           unmountOnBlur: true,
         }}
-        initialRouteName="Details">
+        initialRouteName="Start">
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -123,18 +124,25 @@ export default class App extends Component {
           unmountOnBlur={true}
           options={{unmountOnBlur: true}}
         />
+        <Stack.Screen
+          name="AddMeal"
+          component={AddMealScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
       </Stack.Navigator>
     );
   };
 
   RootStackScreen = () => {
     return (
-      <RootStack.Navigator headerMode="none">
+      <RootStack.Navigator>
         <RootStack.Screen
           name="App"
           component={this.Navi}
           unmountOnBlur={true}
           options={{
+            headerShown: false,
             animationEnabled: false,
             unmountOnBlur: true,
           }}
@@ -145,7 +153,7 @@ export default class App extends Component {
           unmountOnBlur={true}
           options={{
             animationEnabled: false,
-            headerShown: true,
+            headerShown: false,
             unmountOnBlur: true,
           }}
         />
@@ -154,6 +162,7 @@ export default class App extends Component {
   };
 
   render() {
-    return <NavigationContainer>{this.RootStackScreen()}</NavigationContainer>;
+    // return <NavigationContainer>{this.RootStackScreen()}</NavigationContainer>;
+    return <NavigationContainer>{this.Menu()}</NavigationContainer>;
   }
 }

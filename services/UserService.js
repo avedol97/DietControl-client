@@ -47,7 +47,7 @@ export default class UserService extends Component {
   };
 
   logout = () => {
-    AsyncStorage.removeItem('TOKEN');
-    AsyncStorage.removeItem('userId');
+    AsyncStorage.removeItem('token');
+    AsyncStorage.removeItem('user');
   };
 }

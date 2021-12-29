@@ -1,8 +1,20 @@
 import React, {Component} from 'react';
-import {Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import Header from '../Components/Header';
 
 export default class ResultScreen extends Component {
   render() {
-    return <Text>Result</Text>;
+    return (
+      <View style={styles.background}>
+        <Header name="Rezulaty" />
+      </View>
+    );
   }
 }
+
+const styles = StyleSheet.create({
+  background: {
+    width: '100%',
+    height: '100%',
+  },
+});
