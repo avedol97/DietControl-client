@@ -15,23 +15,31 @@ export default class DayScreen extends Component {
     };
   }
 
+  getCurrentDate = () => {
+    const date = new Date().getDate();
+    const month = new Date().getMonth() + 1;
+    const year = new Date().getFullYear();
+
+    return date + '/' + month + '/' + year;
+  };
+
   meal = [
     {
-      name: 'Woda Gazowana',
+      name: 'Cola Gazowana',
       kcal: '100',
       b: '100',
       t: '100',
       w: '100',
     },
     {
-      name: 'Woda NieGazowana',
+      name: 'Cola NieGazowana',
       kcal: '100',
       b: '100',
       t: '100',
       w: '100',
     },
     {
-      name: 'Woda Mocno Gazowana',
+      name: 'Cola Mocno Gazowana',
       kcal: '100',
       b: '100',
       t: '100',
@@ -42,47 +50,57 @@ export default class DayScreen extends Component {
   render() {
     return (
       <View style={styles.background}>
-        <Header name="Data" />
-
+        <Header
+          name={this.getCurrentDate()}
+          navigation={this.props.navigation}
+        />
         <ScrollView>
-          <Meals
-            text="ŚNIADANIE [ 6.00 - 11.00 ]"
-            fun={() => this.props.navigation.navigate('AddMeal')}
-          />
-          {this.meal.map(meal => (
-            <Meal
-              key={meal.name}
-              name={meal.name}
-              kcal={meal.kcal}
-              b={meal.b}
-              t={meal.t}
-              w={meal.w}
+          <View style={styles.box}>
+            <Meals
+              text="ŚNIADANIE [ 6.00 - 11.00 ]"
+              fun={() => this.props.navigation.navigate('SearchMeal')}
             />
-          ))}
-          <Meals text="OBIAD [ 11.00 - 16.00 ] " />
-          {this.meal.map(meal => (
-            <Meal
-              key={meal.name}
-              name={meal.name}
-              kcal={meal.kcal}
-              b={meal.b}
-              t={meal.t}
-              w={meal.w}
+            {this.meal.map(meal => (
+              <Meal
+                key={meal.name}
+                name={meal.name}
+                kcal={meal.kcal}
+                b={meal.b}
+                t={meal.t}
+                w={meal.w}
+              />
+            ))}
+            <Meals
+              text="OBIAD [ 11.00 - 16.00 ] "
+              fun={() => this.props.navigation.navigate('SearchMeal')}
             />
-          ))}
-          <Meals text="KOLACJA [ 16.00 - 19.00 ]" />
-          {this.meal.map(meal => (
-            <Meal
-              key={meal.name}
-              name={meal.name}
-              kcal={meal.kcal}
-              b={meal.b}
-              t={meal.t}
-              w={meal.w}
+            {this.meal.map(meal => (
+              <Meal
+                key={meal.name}
+                name={meal.name}
+                kcal={meal.kcal}
+                b={meal.b}
+                t={meal.t}
+                w={meal.w}
+              />
+            ))}
+            <Meals
+              text="KOLACJA [ 16.00 - 19.00 ]"
+              fun={() => this.props.navigation.navigate('SearchMeal')}
             />
-          ))}
+            {this.meal.map(meal => (
+              <Meal
+                key={meal.name}
+                name={meal.name}
+                kcal={meal.kcal}
+                b={meal.b}
+                t={meal.t}
+                w={meal.w}
+              />
+            ))}
+          </View>
         </ScrollView>
-        <Footer/>
+        <Footer />
       </View>
     );
   }
@@ -92,5 +110,9 @@ const styles = StyleSheet.create({
   background: {
     height: '100%',
     width: '100%',
+  },
+  box: {
+    margin: 10,
+    marginBottom: 150,
   },
 });

@@ -6,9 +6,10 @@ import MissionScreen from './Screens/MissionScreen';
 import LoginScreen from './Screens/LoginScreen';
 import StartScreen from './Screens/StartScreen';
 import DayScreen from './Screens/DayScreen';
-import ProductScreen from './Screens/ProductScreen';
+import RecipeScreen from './Screens/RecipeScreen';
 import ResultScreen from './Screens/ResultScreen';
 import RegisterScreen from './Screens/RegisterScreen';
+import SearchMealScreen from './Screens/SearchMealScreen';
 import AddMealScreen from './Screens/AddMealScreen';
 import DetailsScreen from './Screens/DetailsScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -50,11 +51,11 @@ export default class App extends Component {
           }}
         />
         <Tab.Screen
-          name="Product"
-          component={ProductScreen}
+          name="Recipe"
+          component={RecipeScreen}
           unmountOnBlur={true}
           options={{
-            tabBarLabel: 'Produkt',
+            tabBarLabel: 'Przepis',
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
@@ -130,6 +131,12 @@ export default class App extends Component {
           unmountOnBlur={true}
           options={{unmountOnBlur: true}}
         />
+        <Stack.Screen
+          name="SearchMeal"
+          component={SearchMealScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
       </Stack.Navigator>
     );
   };
@@ -162,7 +169,7 @@ export default class App extends Component {
   };
 
   render() {
-    // return <NavigationContainer>{this.RootStackScreen()}</NavigationContainer>;
-    return <NavigationContainer>{this.Menu()}</NavigationContainer>;
+    return <NavigationContainer>{this.RootStackScreen()}</NavigationContainer>;
+    // return <NavigationContainer>{this.Menu()}</NavigationContainer>;
   }
 }

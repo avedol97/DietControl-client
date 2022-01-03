@@ -23,7 +23,7 @@ export default class UserService extends Component {
       .then(async data => {
         if (data) {
           AsyncStorage.setItem('TOKEN', data.token);
-          AsyncStorage.setItem('userId', JSON.stringify(data.user));
+          AsyncStorage.setItem('userId', data.user);
           return data;
         }
       })

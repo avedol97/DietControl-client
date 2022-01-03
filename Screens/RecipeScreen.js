@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Header from '../Components/Header';
 import {SearchBar, SpeedDial} from 'react-native-elements';
-
 type SearchBarComponentProps = {};
 
-const ProductScreen: React.FunctionComponent<SearchBarComponentProps> = () => {
+const RecipeScreen: React.FunctionComponent<SearchBarComponentProps> = ({
+  navigation,
+}) => {
   const [search, setSearch] = useState('');
   const [open, setOpen] = React.useState(false);
 
@@ -15,7 +16,7 @@ const ProductScreen: React.FunctionComponent<SearchBarComponentProps> = () => {
 
   return (
     <>
-      <Header name="Produkty" />
+      <Header name="Przepisy" />
       <View style={styles.background}>
         <View style={styles.view}>
           <SearchBar
@@ -36,7 +37,7 @@ const ProductScreen: React.FunctionComponent<SearchBarComponentProps> = () => {
           icon={{name: 'add', color: '#fff'}}
           title="Dodaj"
           color="#b70000"
-          onPress={() => console.log('Add Something')}
+          onPress={() => navigation.navigate('AddMeal')}
         />
         <SpeedDial.Action
           icon={{name: 'delete', color: '#fff'}}
@@ -59,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductScreen;
+export default RecipeScreen;
