@@ -20,6 +20,7 @@ export default class AddMealScreen extends Component {
       fat: -1,
       carbohydrates: -1,
       calories: -1,
+      packaging: 'g',
     };
   }
 
@@ -52,6 +53,7 @@ export default class AddMealScreen extends Component {
         this.state.fat,
         this.state.carbohydrates,
         this.state.calories,
+        this.state.packaging,
       );
       Alert.alert('Pomyslnie dodano produkt!');
       this.props.navigation.navigate('SearchMeal');
@@ -89,21 +91,27 @@ export default class AddMealScreen extends Component {
               <Picker.Item label="NAPOJE" value="napoje" />
             </Picker>
           </View>
-          <Text style={styles.mainText}>BIAŁKO [W 100g]</Text>
+          <Text style={styles.mainText}>
+            BIAŁKO [ 100{this.state.packaging}]
+          </Text>
           <TextInput
             placeholder="USTAW"
             placeholderTextColor="white"
             style={styles.input}
             onChangeText={protein => this.setState({protein: protein})}
           />
-          <Text style={styles.mainText}>TŁUSZCZ [W 100g]</Text>
+          <Text style={styles.mainText}>
+            TŁUSZCZ [ 100{this.state.packaging}]
+          </Text>
           <TextInput
             placeholder="USTAW"
             placeholderTextColor="white"
             style={styles.input}
             onChangeText={fat => this.setState({fat: fat})}
           />
-          <Text style={styles.mainText}>WĘGLOWODANY [W 100g]</Text>
+          <Text style={styles.mainText}>
+            WĘGLOWODANY [ 100{this.state.packaging}]
+          </Text>
           <TextInput
             placeholder="USTAW"
             placeholderTextColor="white"
@@ -112,13 +120,28 @@ export default class AddMealScreen extends Component {
               this.setState({carbohydrates: carbohydrates})
             }
           />
-          <Text style={styles.mainText}>KALORIE [W 100g]</Text>
-          <TextInput
-            placeholder=" USTAW"
-            placeholderTextColor="white"
-            style={styles.input}
-            onChangeText={calories => this.setState({calories: calories})}
-          />
+          <Text style={styles.mainText}>
+            KALORIE [ 100{this.state.packaging}]
+          </Text>
+          <View style={styles.calorieBox}>
+            <TextInput
+              placeholder=" USTAW"
+              placeholderTextColor="white"
+              style={styles.inputCalorie}
+              onChangeText={calories => this.setState({calories: calories})}
+            />
+            <View style={styles.container}>
+              <Picker
+                selectedValue={this.state.packaging}
+                style={styles.pickerCalorie}
+                onValueChange={packaging =>
+                  this.setState({packaging: packaging})
+                }>
+                <Picker.Item label="g" value="g" />
+                <Picker.Item label="ml" value="ml" />
+              </Picker>
+            </View>
+          </View>
           <View style={styles.button}>
             <Button text="GOTOWE" fun={() => this.addProduct()} />
           </View>
@@ -153,6 +176,16 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     color: 'white',
   },
+  inputCalorie: {
+    width: 265,
+    margin: 5,
+    paddingLeft: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
+    borderColor: '#708090',
+    borderWidth: 3,
+    color: 'white',
+  },
   container: {
     margin: 5,
     borderColor: '#708090',
@@ -165,7 +198,15 @@ const styles = StyleSheet.create({
     height: 40,
     color: 'white',
   },
+  pickerCalorie: {
+    width: 100,
+    height: 40,
+    color: 'white',
+  },
   button: {
     marginTop: -15,
+  },
+  calorieBox: {
+    flexDirection: 'row',
   },
 });

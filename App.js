@@ -6,12 +6,13 @@ import MissionScreen from './Screens/MissionScreen';
 import LoginScreen from './Screens/LoginScreen';
 import StartScreen from './Screens/StartScreen';
 import DayScreen from './Screens/DayScreen';
-import RecipeScreen from './Screens/RecipeScreen';
 import ResultScreen from './Screens/ResultScreen';
+import ProfileScreen from './Screens/ProfileScreen';
 import RegisterScreen from './Screens/RegisterScreen';
 import SearchMealScreen from './Screens/SearchMealScreen';
 import AddMealScreen from './Screens/AddMealScreen';
 import DetailsScreen from './Screens/DetailsScreen';
+import CalculateScreen from './Screens/CalculateScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Stack = createStackNavigator();
@@ -52,10 +53,10 @@ export default class App extends Component {
         />
         <Tab.Screen
           name="Recipe"
-          component={RecipeScreen}
+          component={ResultScreen}
           unmountOnBlur={true}
           options={{
-            tabBarLabel: 'Przepis',
+            tabBarLabel: 'Postęp',
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
@@ -69,9 +70,9 @@ export default class App extends Component {
         <Tab.Screen
           name="Result"
           unmountOnBlur={true}
-          component={ResultScreen}
+          component={ProfileScreen}
           options={{
-            tabBarLabel: 'Wynik',
+            tabBarLabel: 'Profil',
             unmountOnBlur: true,
             tabBarIcon: ({focused}) => (
               <Icon
@@ -134,6 +135,12 @@ export default class App extends Component {
         <Stack.Screen
           name="SearchMeal"
           component={SearchMealScreen}
+          unmountOnBlur={true}
+          options={{unmountOnBlur: true}}
+        />
+        <Stack.Screen
+          name="Calculate"
+          component={CalculateScreen}
           unmountOnBlur={true}
           options={{unmountOnBlur: true}}
         />

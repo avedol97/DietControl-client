@@ -24,9 +24,28 @@ export default class UserService extends Component {
         if (data) {
           AsyncStorage.setItem('TOKEN', data.token);
           AsyncStorage.setItem('userId', data.user);
+          AsyncStorage.setItem('isDetails', data.isDetails.toString());
+          AsyncStorage.setItem('isAdmin', data.isAdmin.toString());
           return data;
         }
       })
+      .catch(error => {
+        console.log('POST error: ' + error);
+      });
+  };
+
+  changeDetails = async id => {
+    return await fetch(this.baseUrl + 'user/update/details', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id,
+      }),
+    })
+      .then(response => console.log(response))
+
       .catch(error => {
         console.log('POST error: ' + error);
       });

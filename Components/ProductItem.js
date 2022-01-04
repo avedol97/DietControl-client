@@ -1,14 +1,17 @@
-import React, {Component} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 export function ProductItem(props) {
   return (
-    <TouchableOpacity>
-      <View style={styles.productContainer}>
-        <Text style={styles.productText}>{props.product.name}</Text>
-        <Text style={styles.productText}>{props.product.calories}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.productContainer}>
+      <Text style={styles.productText}>{props.product.name}</Text>
+      <Text style={styles.productText}>
+        {props.product.calories}{' '}
+        <Text style={{color: '#999999'}}>
+          cal (100 {props.product.packaging})
+        </Text>
+      </Text>
+    </View>
   );
 }
 

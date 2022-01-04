@@ -10,7 +10,7 @@ export default class HeaderBack extends Component {
     super();
   }
 
-  logout() {
+  back() {
     this.props.navigation.navigate('Auth');
   }
 
@@ -18,7 +18,7 @@ export default class HeaderBack extends Component {
     return (
       <View style={styles.head}>
         <Text style={styles.title}>{this.props.name}</Text>
-        <TouchableOpacity style={styles.icon} onPress={() => this.logout()}>
+        <TouchableOpacity style={styles.icon} onPress={() => this.back()}>
           <Icon name="arrow-back-outline" size={30} color="white" />
         </TouchableOpacity>
       </View>

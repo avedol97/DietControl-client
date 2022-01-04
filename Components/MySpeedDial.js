@@ -17,7 +17,7 @@ const MySpeedDial = props => {
         <SpeedDial.Action
           icon={{name: 'add', color: '#fff'}}
           color="#b70000"
-          title="Dodaj Produkt"
+          title="Dodajsddddddddddddddd"
           onPress={() => {
             props.navigation.navigate('AddMeal');
             setOpen(!open);
@@ -30,11 +30,8 @@ const MySpeedDial = props => {
 
 const styles = StyleSheet.create({
   background: {
-    width: '10%',
-    height: '10%',
-  },
-  view: {
-    margin: 10,
+    width: 50,
+    height: 50,
   },
 });
 

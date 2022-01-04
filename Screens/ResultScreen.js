@@ -1,14 +1,30 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import Header from '../Components/Header';
-
-import {Dimensions} from 'react-native';
 import {BarChart, LineChart} from 'react-native-chart-kit';
 const screenWidth = Dimensions.get('window').width;
+import {Dimensions} from 'react-native';
 
 export default class ResultScreen extends Component {
+  constructor() {
+    super();
+  }
+
   data = {
-    labels: ['1.01', '2.01', '3.01', '4.01', '5.01', '6.01','1.01', '2.01', '3.01', '4.01', '5.01', '6.01'],
+    labels: [
+      '1.01',
+      '2.01',
+      '3.01',
+      '4.01',
+      '5.01',
+      '6.01',
+      '1.01',
+      '2.01',
+      '3.01',
+      '4.01',
+      '5.01',
+      '6.01',
+    ],
     datasets: [
       {
         data: [95, 105, 88, 70, 99, 43, 95, 105, 88, 70, 99, 43],
@@ -31,23 +47,25 @@ export default class ResultScreen extends Component {
 
   render() {
     return (
-      <View style={styles.background}>
-        <Header name="Rezulaty" />
-        <LineChart
-          data={this.data}
-          width={screenWidth}
-          height={220}
-          chartConfig={this.chartConfig}
-        />
-        <BarChart
-          // style={graphStyle}
-          data={this.data}
-          width={screenWidth}
-          height={220}
-          // yAxisLabel="$"
-          chartConfig={this.chartConfig}
-          verticalLabelRotation={30}
-        />
+      <View>
+        <Header name="Postęp" />
+        <View>
+          <LineChart
+            data={this.data}
+            width={screenWidth}
+            height={220}
+            chartConfig={this.chartConfig}
+          />
+          <BarChart
+            // style={graphStyle}
+            data={this.data}
+            width={screenWidth}
+            height={220}
+            // yAxisLabel="$"
+            chartConfig={this.chartConfig}
+            verticalLabelRotation={30}
+          />
+        </View>
       </View>
     );
   }
@@ -56,6 +74,9 @@ export default class ResultScreen extends Component {
 const styles = StyleSheet.create({
   background: {
     width: '100%',
-    height: '100%',
+    height: '80%',
+  },
+  view: {
+    margin: 10,
   },
 });

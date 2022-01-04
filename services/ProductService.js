@@ -11,6 +11,7 @@ export default class ProductService extends Component {
     fat,
     carbohydrates,
     calories,
+    packaging,
   ) => {
     await fetch(this.baseUrl + 'user/product', {
       method: 'POST',
@@ -26,6 +27,7 @@ export default class ProductService extends Component {
         fat: fat,
         carbohydrates: carbohydrates,
         calories: calories,
+        packaging: packaging,
       }),
     }).then(response => console.log(response));
   };

@@ -8,6 +8,7 @@ import {
   Platform,
   Text,
   StatusBar,
+  Alert,
 } from 'react-native';
 import MyField from '../Components/MyField';
 import Button from '../Components/Button2';
@@ -15,10 +16,13 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import {RadioButton} from 'react-native-paper';
 import {Picker} from '@react-native-picker/picker';
 import DetailsService from '../services/DetailsService';
+import UserService from '../services/UserService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const service = new DetailsService();
+const serviceUser = new UserService();
 
-const DetailsScreen = () => {
+const DetailsScreen = ({navigation}) => {
   const [height, setHeight] = useState();
   const [weight, setWeight] = useState();
 
@@ -66,6 +70,7 @@ const DetailsScreen = () => {
     purpose,
     somatic,
   ) => {
+    const id = await AsyncStorage.getItem('userId');
     console.log('gender ' + gender);
     console.log('date ' + date);
     console.log('height ' + height);
@@ -77,7 +82,7 @@ const DetailsScreen = () => {
       alert(' Musisz uzupełnić wszystkie dane!');
     } else {
       const data = await service.postDetails(
-        '61ca53cdb3ac61cc953569ef',
+        id,
         gender,
         date,
         height,
@@ -86,6 +91,10 @@ const DetailsScreen = () => {
         purpose,
         somatic,
       );
+
+      await serviceUser.changeDetails(id);
+      Alert.alert('Pomyślnie uzupełniono dane!');
+       await navigation.navigate('Auth');
     }
   };
 
@@ -223,7 +232,7 @@ const DetailsScreen = () => {
             </View>
           </View>
           <Button
-            text="GOTOWE"
+            text="ZAPISZ"
             fun={() =>
               createDetails(gender, date, height, weight, activity, purpose)
             }

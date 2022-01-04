@@ -4,6 +4,10 @@ import Meals from '../Components/Meals';
 import Meal from '../Components/Meal';
 import Header from '../Components/Header';
 import Footer from '../Components/Footer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import DetailsService from '../services/DetailsService';
+
+const service = new DetailsService();
 
 export default class DayScreen extends Component {
   constructor() {
@@ -12,7 +16,34 @@ export default class DayScreen extends Component {
       breakfast: [],
       lunch: [],
       dinner: [],
+      isAdmin: 'true',
+      isDetails: 'true',
     };
+  }
+
+  componentDidMount() {
+    this.getDateAsync();
+    this.getDetails();
+  }
+
+  async getDateAsync() {
+    const detail = await AsyncStorage.getItem('isDetails');
+    this.setState({isAdmin: await AsyncStorage.getItem('isAdmin')});
+    this.setState({isDetails: await AsyncStorage.getItem('isDetails')});
+    if (detail === 'false') {
+      this.props.navigation.navigate('Details');
+    }
+  }
+
+  async getDetails() {
+    const id = await AsyncStorage.getItem('userId');
+    console.log(id);
+    try {
+      const data = await service.getDetails(id);
+      AsyncStorage.setItem('details', data);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   getCurrentDate = () => {
@@ -58,7 +89,11 @@ export default class DayScreen extends Component {
           <View style={styles.box}>
             <Meals
               text="ŚNIADANIE [ 6.00 - 11.00 ]"
-              fun={() => this.props.navigation.navigate('SearchMeal')}
+              fun={() =>
+                this.props.navigation.navigate('SearchMeal', {
+                  date: 'ŚNIADANIE',
+                })
+              }
             />
             {this.meal.map(meal => (
               <Meal
@@ -72,7 +107,9 @@ export default class DayScreen extends Component {
             ))}
             <Meals
               text="OBIAD [ 11.00 - 16.00 ] "
-              fun={() => this.props.navigation.navigate('SearchMeal')}
+              fun={() =>
+                this.props.navigation.navigate('SearchMeal', {date: 'OBIAD'})
+              }
             />
             {this.meal.map(meal => (
               <Meal
@@ -86,7 +123,9 @@ export default class DayScreen extends Component {
             ))}
             <Meals
               text="KOLACJA [ 16.00 - 19.00 ]"
-              fun={() => this.props.navigation.navigate('SearchMeal')}
+              fun={() =>
+                this.props.navigation.navigate('SearchMeal', {date: 'KOLACJA'})
+              }
             />
             {this.meal.map(meal => (
               <Meal
