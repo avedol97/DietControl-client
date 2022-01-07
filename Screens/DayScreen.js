@@ -13,8 +13,10 @@ import Header from '../Components/Header';
 import Footer from '../Components/Footer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DetailsService from '../services/DetailsService';
+import BalanceService from '../services/BalanceService';
 
 const service = new DetailsService();
+const serviceBalance = new BalanceService();
 
 export default class DayScreen extends Component {
   constructor() {
@@ -24,14 +26,13 @@ export default class DayScreen extends Component {
       isAdmin: 'true',
       isDetails: 'true',
       isLoading: true,
+      id: '',
       kcal: 0,
-      kcalDetails: 0,
       b: 0,
       t: 0,
       w: 0,
-      bfName: 'ŚNIADANIE',
-      lunchName: 'OBIAD',
-      dinnerName: 'KOLACJA',
+      balance: 0,
+      isDateBalance: false,
     };
   }
   forceUpdateHandler() {
@@ -40,7 +41,7 @@ export default class DayScreen extends Component {
 
   componentDidMount() {
     this.getDateAsync();
-    this.getDetails();
+    this.get();
   }
 
   async getDateAsync() {
@@ -58,24 +59,46 @@ export default class DayScreen extends Component {
     }
   }
 
-  async getDetails() {
+  async get() {
     const id = await AsyncStorage.getItem('userId');
+
     try {
-      const data = await service.getDetails(id);
-      console.log(this.state.kcalDetails);
-      AsyncStorage.setItem('details', JSON.stringify(data));
+      const details = await service.getDetails(id);
+      AsyncStorage.setItem('details', JSON.stringify(details));
+      const balance = await serviceBalance.getBalanceDay(id);
+      AsyncStorage.setItem('balance', JSON.stringify(balance));
+      this.setState({weight: await AsyncStorage.getItem('weight')});
+      console.log(await AsyncStorage.getItem('weight'));
+      if (this.checkBalanceDay(balance)) {
+        this.setState({isDateBalance: true});
+      }
+      this.setState({id: id, balance: balance});
     } catch (e) {
       console.log(e);
     }
   }
 
-  getCurrentDate = () => {
-    const date = new Date().getDate();
+  getCurrentDate() {
+    const day = new Date().getDate();
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
 
-    return date + '/' + month + '/' + year;
-  };
+    return day + '/' + month + '/' + year;
+  }
+
+  checkBalanceDay(balance) {
+    let check = false;
+    balance.map(function (value, i) {
+      if (
+        value.date.day === new Date().getDate().toString() &&
+        value.date.month === new Date().getMonth().toString() + 1 &&
+        value.date.year === new Date().getFullYear().toString()
+      ) {
+        check = true;
+      }
+    });
+    return check;
+  }
 
   async deleteElement(index, what) {
     if (what === 0) {
@@ -93,15 +116,43 @@ export default class DayScreen extends Component {
       this.state.dinner.splice(index, 1);
       await AsyncStorage.setItem('dinner', JSON.stringify(this.state.dinner));
     }
-    this.forceUpdateHandler();
     this.setState({kcal: 0, b: 0, t: 0, w: 0});
+    this.forceUpdateHandler();
   }
 
   sumValue(kcal, b, t, w) {
+    console.log((this.state.w += w));
     this.state.kcal += kcal;
     this.state.b += b;
     this.state.t += t;
     this.state.w += w;
+  }
+
+  async setAsync() {
+    await AsyncStorage.setItem('b', this.state.t);
+    await AsyncStorage.setItem('t', this.state.t);
+    await AsyncStorage.setItem('w', this.state.w);
+  }
+
+  async createBalanceDay() {
+    const data = await serviceBalance.postBalanceDay(
+      this.state.id,
+      {
+        breakfast: this.state.bf,
+        lunch: this.state.lunch,
+        dinner: this.state.dinner,
+      },
+      {
+        day: new Date().getDate().toString(),
+        month: new Date().getMonth().toString() + 1,
+        year: new Date().getFullYear().toString(),
+      },
+      this.state.b,
+      this.state.t,
+      this.state.w,
+      this.state.kcal,
+      this.state.weight,
+    );
   }
 
   renderBreakfastList = () => {
@@ -172,35 +223,39 @@ export default class DayScreen extends Component {
           <View style={styles.box}>
             <Meals
               text="ŚNIADANIE [ 6.00 - 11.00 ]"
-              fun={() =>
+              fun={() => {
+                this.setState({kcal: 0, b: 0, t: 0, w: 0});
                 this.props.navigation.navigate('SearchMeal', {
-                  date: this.state.bfName,
-                })
-              }
+                  date: 'ŚNIADANIE',
+                });
+              }}
             />
             {this.renderBreakfastList()}
             <Meals
               text="OBIAD [ 11.00 - 16.00 ] "
-              fun={() =>
+              fun={() => {
+                this.setState({kcal: 0, b: 0, t: 0, w: 0});
                 this.props.navigation.navigate('SearchMeal', {
-                  date: this.state.lunchName,
-                })
-              }
+                  date: 'OBIAD',
+                });
+              }}
             />
             {this.renderLunchList()}
             <Meals
               text="KOLACJA [ 16.00 - 19.00 ]"
-              fun={() =>
+              fun={() => {
+                this.setState({kcal: 0, b: 0, t: 0, w: 0});
                 this.props.navigation.navigate('SearchMeal', {
-                  date: this.state.dinnerName,
-                })
-              }
+                  date: 'KOLACJA',
+                });
+              }}
             />
             {this.renderDinnerList()}
           </View>
         </ScrollView>
         <Footer
           kcal={Math.round(this.state.kcal)}
+          kcalDetails={this.state.kcalDetails}
           b={Math.round(this.state.b)}
           t={Math.round(this.state.t)}
           w={Math.round(this.state.w)}
@@ -214,6 +269,7 @@ const styles = StyleSheet.create({
   background: {
     height: '100%',
     width: '100%',
+    backgroundColor: '#181818',
   },
   box: {
     margin: 10,

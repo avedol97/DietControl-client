@@ -71,6 +71,8 @@ export default class AddMealScreen extends Component {
           <TextInput
             placeholder="USTAW"
             placeholderTextColor="white"
+            showSoftInputOnFocus={false}
+            keyboardType="numeric"
             style={styles.input}
             onChangeText={name => this.setState({name: name})}
           />

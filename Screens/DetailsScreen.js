@@ -71,13 +71,6 @@ const DetailsScreen = ({navigation}) => {
     somatic,
   ) => {
     const id = await AsyncStorage.getItem('userId');
-    console.log('gender ' + gender);
-    console.log('date ' + date);
-    console.log('height ' + height);
-    console.log('weight ' + weight);
-    console.log('activity ' + activity);
-    console.log('purpose ' + purpose);
-    console.log('somatic ' + somatic);
     if (date === undefined || height === undefined || weight === undefined) {
       alert(' Musisz uzupełnić wszystkie dane!');
     } else {
@@ -94,7 +87,7 @@ const DetailsScreen = ({navigation}) => {
 
       await serviceUser.changeDetails(id);
       Alert.alert('Pomyślnie uzupełniono dane!');
-       await navigation.navigate('Auth');
+      await navigation.navigate('Auth');
     }
   };
 

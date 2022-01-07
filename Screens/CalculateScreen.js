@@ -133,6 +133,8 @@ export default class CalculateScreen extends Component {
             <TextInput
               placeholder="100"
               placeholderTextColor="white"
+              showSoftInputOnFocus={false}
+              keyboardType="numeric"
               style={styles.input}
               onChangeText={newKcal =>
                 this.calculate(

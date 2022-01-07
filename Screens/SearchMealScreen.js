@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
-  Keyboard,
 } from 'react-native';
 import Header from '../Components/HeaderBack';
 import MySpeedDial from '../Components/MySpeedDial';
@@ -28,15 +27,20 @@ export default class SearchMealScreen extends Component {
     };
   }
 
-  async get() {
-    const {date} = await this.props.route.params;
-    this.setState({date: date});
+  componentDidMount() {
+    this.getProductList().then(r => console.log('Oks'));
   }
 
-  componentDidMount() {
-    Keyboard.dismiss;
-    this.get();
-    this.getProductList().then(r => console.log('Oks'));
+  componentDidUpdate(
+    prevProps: Readonly<P>,
+    prevState: Readonly<S>,
+    snapshot: SS,
+  ) {
+    const {date} = this.props.route.params;
+    if (this.state.date !== date) {
+      console.log('poraDnia' + date);
+      this.setState({date: date});
+    }
   }
 
   async getProductList() {

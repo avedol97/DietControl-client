@@ -26,6 +26,7 @@ export default class UserService extends Component {
           AsyncStorage.setItem('userId', data.user);
           AsyncStorage.setItem('isDetails', data.isDetails.toString());
           AsyncStorage.setItem('isAdmin', data.isAdmin.toString());
+          AsyncStorage.setItem('email', data.email);
           return data;
         }
       })
