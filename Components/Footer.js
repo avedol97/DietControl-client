@@ -16,10 +16,10 @@ export default class Footer extends Component {
           <Text style={styles.text_line_one}>Węgl.</Text>
         </View>
         <View style={styles.line}>
-          <Text style={styles.text_line_two}>2000</Text>
-          <Text style={styles.text_line_two}>100</Text>
-          <Text style={styles.text_line_two}>50</Text>
-          <Text style={styles.text_line_two}>300</Text>
+          <Text style={styles.text_line_two}>{this.props.kcal}</Text>
+          <Text style={styles.text_line_two}>{this.props.b}</Text>
+          <Text style={styles.text_line_two}>{this.props.t}</Text>
+          <Text style={styles.text_line_two}>{this.props.w}</Text>
         </View>
       </View>
     );

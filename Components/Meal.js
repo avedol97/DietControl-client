@@ -27,7 +27,7 @@ export default function Meals(props) {
 
 const styles = StyleSheet.create({
   background: {
-    height: '10%',
+    height: 50,
     width: '100%',
     backgroundColor: '#708090',
     paddingLeft: 10,
@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     borderColor: '#2d2e30',
     borderWidth: 2,
-    marginTop: -12,
   },
   box: {
     width: '97%',

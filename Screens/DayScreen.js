@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, SafeAreaView, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 import Meals from '../Components/Meals';
 import Meal from '../Components/Meal';
 import Header from '../Components/Header';
@@ -12,13 +19,23 @@ const service = new DetailsService();
 export default class DayScreen extends Component {
   constructor() {
     super();
+    this.forceUpdateHandler = this.forceUpdateHandler.bind(this);
     this.state = {
-      breakfast: [],
-      lunch: [],
-      dinner: [],
       isAdmin: 'true',
       isDetails: 'true',
+      isLoading: true,
+      kcal: 0,
+      kcalDetails: 0,
+      b: 0,
+      t: 0,
+      w: 0,
+      bfName: 'ŚNIADANIE',
+      lunchName: 'OBIAD',
+      dinnerName: 'KOLACJA',
     };
+  }
+  forceUpdateHandler() {
+    this.forceUpdate();
   }
 
   componentDidMount() {
@@ -30,6 +47,12 @@ export default class DayScreen extends Component {
     const detail = await AsyncStorage.getItem('isDetails');
     this.setState({isAdmin: await AsyncStorage.getItem('isAdmin')});
     this.setState({isDetails: await AsyncStorage.getItem('isDetails')});
+    this.setState({
+      bf: JSON.parse(await AsyncStorage.getItem('bf')),
+      lunch: JSON.parse(await AsyncStorage.getItem('lunch')),
+      dinner: JSON.parse(await AsyncStorage.getItem('dinner')),
+      isLoading: false,
+    });
     if (detail === 'false') {
       this.props.navigation.navigate('Details');
     }
@@ -37,10 +60,10 @@ export default class DayScreen extends Component {
 
   async getDetails() {
     const id = await AsyncStorage.getItem('userId');
-    console.log(id);
     try {
       const data = await service.getDetails(id);
-      AsyncStorage.setItem('details', data);
+      console.log(this.state.kcalDetails);
+      AsyncStorage.setItem('details', JSON.stringify(data));
     } catch (e) {
       console.log(e);
     }
@@ -54,29 +77,89 @@ export default class DayScreen extends Component {
     return date + '/' + month + '/' + year;
   };
 
-  meal = [
-    {
-      name: 'Cola Gazowana',
-      kcal: '100',
-      b: '100',
-      t: '100',
-      w: '100',
-    },
-    {
-      name: 'Cola NieGazowana',
-      kcal: '100',
-      b: '100',
-      t: '100',
-      w: '100',
-    },
-    {
-      name: 'Cola Mocno Gazowana',
-      kcal: '100',
-      b: '100',
-      t: '100',
-      w: '100',
-    },
-  ];
+  async deleteElement(index, what) {
+    if (what === 0) {
+      AsyncStorage.removeItem('bf');
+      this.state.bf.splice(index, 1);
+      await AsyncStorage.setItem('bf', JSON.stringify(this.state.bf));
+    }
+    if (what === 1) {
+      AsyncStorage.removeItem('lunch');
+      this.state.lunch.splice(index, 1);
+      await AsyncStorage.setItem('lunch', JSON.stringify(this.state.lunch));
+    }
+    if (what === 2) {
+      AsyncStorage.removeItem('dinner');
+      this.state.dinner.splice(index, 1);
+      await AsyncStorage.setItem('dinner', JSON.stringify(this.state.dinner));
+    }
+    this.forceUpdateHandler();
+    this.setState({kcal: 0, b: 0, t: 0, w: 0});
+  }
+
+  sumValue(kcal, b, t, w) {
+    this.state.kcal += kcal;
+    this.state.b += b;
+    this.state.t += t;
+    this.state.w += w;
+  }
+
+  renderBreakfastList = () => {
+    if (this.state.bf !== null && this.state.isLoading === false) {
+      return this.state.bf.map((meal, index) => {
+        this.sumValue(meal.kcal, meal.b, meal.t, meal.w);
+        return (
+          <Meal
+            key={index}
+            name={meal.name}
+            kcal={meal.kcal}
+            b={meal.b}
+            t={meal.t}
+            w={meal.w}
+            fun={() => this.deleteElement(index, 0)}
+          />
+        );
+      });
+    }
+  };
+
+  renderLunchList = () => {
+    if (this.state.lunch !== null && this.state.isLoading === false) {
+      return this.state.lunch.map((meal, index) => {
+        this.sumValue(meal.kcal, meal.b, meal.t, meal.w);
+        return (
+          <Meal
+            key={index}
+            name={meal.name}
+            kcal={meal.kcal}
+            b={meal.b}
+            t={meal.t}
+            w={meal.w}
+            fun={() => this.deleteElement(index, 1)}
+          />
+        );
+      });
+    }
+  };
+
+  renderDinnerList = () => {
+    if (this.state.dinner !== null && this.state.isLoading === false) {
+      return this.state.dinner.map((meal, index) => {
+        this.sumValue(meal.kcal, meal.b, meal.t, meal.w);
+        return (
+          <Meal
+            key={index}
+            name={meal.name}
+            kcal={meal.kcal}
+            b={meal.b}
+            t={meal.t}
+            w={meal.w}
+            fun={() => this.deleteElement(index, 2)}
+          />
+        );
+      });
+    }
+  };
 
   render() {
     return (
@@ -91,55 +174,37 @@ export default class DayScreen extends Component {
               text="ŚNIADANIE [ 6.00 - 11.00 ]"
               fun={() =>
                 this.props.navigation.navigate('SearchMeal', {
-                  date: 'ŚNIADANIE',
+                  date: this.state.bfName,
                 })
               }
             />
-            {this.meal.map(meal => (
-              <Meal
-                key={meal.name}
-                name={meal.name}
-                kcal={meal.kcal}
-                b={meal.b}
-                t={meal.t}
-                w={meal.w}
-              />
-            ))}
+            {this.renderBreakfastList()}
             <Meals
               text="OBIAD [ 11.00 - 16.00 ] "
               fun={() =>
-                this.props.navigation.navigate('SearchMeal', {date: 'OBIAD'})
+                this.props.navigation.navigate('SearchMeal', {
+                  date: this.state.lunchName,
+                })
               }
             />
-            {this.meal.map(meal => (
-              <Meal
-                key={meal.name}
-                name={meal.name}
-                kcal={meal.kcal}
-                b={meal.b}
-                t={meal.t}
-                w={meal.w}
-              />
-            ))}
+            {this.renderLunchList()}
             <Meals
               text="KOLACJA [ 16.00 - 19.00 ]"
               fun={() =>
-                this.props.navigation.navigate('SearchMeal', {date: 'KOLACJA'})
+                this.props.navigation.navigate('SearchMeal', {
+                  date: this.state.dinnerName,
+                })
               }
             />
-            {this.meal.map(meal => (
-              <Meal
-                key={meal.name}
-                name={meal.name}
-                kcal={meal.kcal}
-                b={meal.b}
-                t={meal.t}
-                w={meal.w}
-              />
-            ))}
+            {this.renderDinnerList()}
           </View>
         </ScrollView>
-        <Footer />
+        <Footer
+          kcal={Math.round(this.state.kcal)}
+          b={Math.round(this.state.b)}
+          t={Math.round(this.state.t)}
+          w={Math.round(this.state.w)}
+        />
       </View>
     );
   }

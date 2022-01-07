@@ -17,11 +17,8 @@ export default class LoginScreen extends Component {
   }
 
   login = async (email, password) => {
-    console.log('email ' + email);
-    console.log('password ' + password);
     if (email !== '' && password !== '') {
       const data = await service.login(email, password);
-      console.log(data.message);
       this.setState({alert: data.message});
       if (!data.message) {
         this.props.navigation.navigate('Auth');

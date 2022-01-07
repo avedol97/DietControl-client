@@ -61,7 +61,7 @@ export default class SearchMealScreen extends Component {
           onPress={() =>
             this.props.navigation.navigate('Calculate', {
               date: product,
-              dateEat: this.state.date,
+              timeOfDayProduct: this.state.date,
             })
           }>
           <ProductItem key={index} product={product} />

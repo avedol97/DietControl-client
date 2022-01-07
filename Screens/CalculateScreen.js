@@ -9,37 +9,51 @@ import {
 } from 'react-native';
 import Header from '../Components/HeaderBack';
 import Button from '../Components/Button3';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class CalculateScreen extends Component {
   constructor() {
     super();
     this.state = {
       date: '',
-      dateEat: '',
-      kcal: '',
       newKcal: '100',
-      b: '',
-      t: '',
-      w: '',
+      timeOfDayProduct: '',
+      nameProduct: '',
+      bProduct: '',
+      tProduct: '',
+      wProduct: '',
+      kcalProduct: '',
     };
   }
 
   async get() {
-    const {date, dateEat} = await this.props.route.params;
+    const {date, timeOfDayProduct} = await this.props.route.params;
     this.setState({
       date: date,
-      dateEat: dateEat,
-      kcal: date.calories,
-      b: date.protein,
-      t: date.fat,
-      w: date.carbohydrates,
+      timeOfDayProduct: timeOfDayProduct,
+      kcalProduct: date.calories,
+      nameProduct: date.name,
+      bProduct: date.protein,
+      tProduct: date.fat,
+      wProduct: date.carbohydrates,
+    });
+  }
+
+  async getDateAsync() {
+    this.setState({
+      bf: JSON.parse(await AsyncStorage.getItem('bf')),
+      lunch: JSON.parse(await AsyncStorage.getItem('lunch')),
+      dinner: JSON.parse(await AsyncStorage.getItem('dinner')),
+      isLoading: false,
     });
   }
 
   componentDidMount() {
+    this.getDateAsync();
     Keyboard.dismiss;
     this.get().then(r => console.log('OO'));
   }
+
 
   calculate(kcal, newKcal, protein, fat, carbohydrates) {
     const result = (kcal * newKcal) / 100;
@@ -47,7 +61,53 @@ export default class CalculateScreen extends Component {
     const t = (fat * newKcal) / 100;
     const w = (carbohydrates * newKcal) / 100;
     console.log(t);
-    this.setState({kcal: result, newKcal: newKcal, b: b, t: t, w: w});
+    this.setState({
+      kcalProduct: result,
+      newKcal: newKcal,
+      bProduct: b,
+      tProduct: t,
+      wProduct: w,
+    });
+  }
+
+  async addProduct() {
+    const product = [
+      {
+        name: this.state.nameProduct,
+        b: this.state.bProduct,
+        t: this.state.tProduct,
+        w: this.state.wProduct,
+        kcal: this.state.kcalProduct,
+      },
+    ];
+
+    let xd;
+
+    if (this.state.timeOfDayProduct === 'ŚNIADANIE') {
+      if (this.state.bf !== null) {
+        xd = this.state.bf.push(...product);
+      } else {
+        this.state.bf = product;
+      }
+      await AsyncStorage.setItem('bf', JSON.stringify(this.state.bf));
+    }
+    if (this.state.timeOfDayProduct === 'OBIAD') {
+      if (this.state.lunch !== null) {
+        xd = this.state.lunch.push(...product);
+      } else {
+        this.state.lunch = product;
+      }
+      await AsyncStorage.setItem('lunch', JSON.stringify(this.state.lunch));
+    }
+    if (this.state.timeOfDayProduct === 'KOLACJA') {
+      if (this.state.dinner !== null) {
+        xd = this.state.dinner.push(...product);
+      } else {
+        this.state.dinner = product;
+      }
+      await AsyncStorage.setItem('dinner', JSON.stringify(this.state.dinner));
+    }
+    this.props.navigation.navigate('Auth');
   }
 
   render() {
@@ -55,7 +115,7 @@ export default class CalculateScreen extends Component {
       <View style={styles.background}>
         <Header name="Kalorie" navigation={this.props.navigation} />
         <View style={styles.eat}>
-          <Text style={styles.eatText}>{this.state.dateEat}</Text>
+          <Text style={styles.eatText}>{this.state.timeOfDayProduct}</Text>
         </View>
         <View style={styles.top}>
           <View style={styles.topBox}>
@@ -85,24 +145,23 @@ export default class CalculateScreen extends Component {
               }
             />
             <Text style={styles.topBoxText2}>{this.state.date.packaging}</Text>
-            <Text style={styles.topBoxText}>{this.state.kcal} kcal</Text>
+            <Text style={styles.topBoxText}>{this.state.kcalProduct} kcal</Text>
           </View>
-          <Button text="DODAJ" />
+          <Button text="DODAJ" fun={() => this.addProduct()} />
         </View>
 
         <View style={styles.down}>
           <Text style={styles.title}>Wartości Odżywcze</Text>
-          <View style={styles.table}>
-            <View style={styles.tableTop}>
-              <Text style={styles.tableTopText}>
-                Na 100{this.state.date.packaging}
-              </Text>
-              <Text style={styles.tableTopText}>
-                Na {this.state.newKcal}
-                {this.state.date.packaging}{' '}
-              </Text>
-            </View>
+          <View style={styles.tableTop}>
+            <Text style={styles.tableTopText}>
+              Na 100{this.state.date.packaging}
+            </Text>
+            <Text style={styles.tableTopText}>
+              Na {this.state.newKcal}
+              {this.state.date.packaging}{' '}
+            </Text>
           </View>
+          <View style={styles.table} />
           <View style={styles.table}>
             <View style={styles.tableIn}>
               <Text style={styles.tableDownText}>
@@ -111,7 +170,7 @@ export default class CalculateScreen extends Component {
             </View>
             <View style={styles.tableOn}>
               <Text style={styles.tableText}>{this.state.date.protein}</Text>
-              <Text style={styles.tableText}>{this.state.b}</Text>
+              <Text style={styles.tableText}>{this.state.bProduct}</Text>
             </View>
           </View>
           <View style={styles.table}>
@@ -122,7 +181,7 @@ export default class CalculateScreen extends Component {
             </View>
             <View style={styles.tableOn}>
               <Text style={styles.tableText}>{this.state.date.fat}</Text>
-              <Text style={styles.tableText}>{this.state.t}</Text>
+              <Text style={styles.tableText}>{this.state.tProduct}</Text>
             </View>
           </View>
           <View style={styles.table}>
@@ -135,7 +194,7 @@ export default class CalculateScreen extends Component {
               <Text style={styles.tableText}>
                 {this.state.date.carbohydrates}
               </Text>
-              <Text style={styles.tableText}>{this.state.w}</Text>
+              <Text style={styles.tableText}>{this.state.wProduct}</Text>
             </View>
           </View>
         </View>
@@ -169,14 +228,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#999999',
   },
   tableText: {
-    marginLeft: 80,
-    marginRight: 50,
     color: '#b70000',
     fontSize: 15,
     fontWeight: '700',
   },
   tableTopText: {
-    marginLeft: 80,
     color: 'white',
   },
   tableDownText: {
@@ -185,15 +241,20 @@ const styles = StyleSheet.create({
   tableIn: {
     width: '30%',
     flexDirection: 'row',
+    justifyContent: 'space-around',
   },
   tableOn: {
     width: '60%',
     flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginLeft: 30,
   },
   tableTop: {
+    marginTop: 20,
+    marginBottom: -10,
     flexDirection: 'row',
-    marginLeft: 95,
-    padding: 0,
+    justifyContent: 'space-evenly',
+    marginLeft: 140,
   },
   title: {
     fontSize: 20,

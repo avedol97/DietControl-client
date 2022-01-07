@@ -70,9 +70,6 @@ export default class ProfileScreen extends Component {
     this.setState({details: JSON.parse(details), isLoading: true});
   }
 
-  changeViewResult() {
-    this.setState({isResult: true});
-  }
   changeViewProfile() {
     this.setState({isResult: false});
   }
@@ -130,7 +127,6 @@ export default class ProfileScreen extends Component {
         <View>
           {this.state.isResult ? this.renderResult() : this.renderProfile()}
         </View>
-
       </View>
     );
   }
