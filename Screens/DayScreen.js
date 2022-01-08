@@ -42,10 +42,45 @@ export default class DayScreen extends Component {
   componentDidMount() {
     this.getDateAsync();
     this.get();
+    this.createBalanceDay();
+  }
+
+  async sendToday() {
+    const kcal = Math.round(this.state.kcal / 3);
+    const b = this.state.b / 3;
+    const t = this.state.t / 3;
+    const w = this.state.w / 3;
+    const data = [
+      {
+        name: 'Białko',
+        population: b,
+        color: 'rgba(131, 167, 234, 1)',
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 15,
+      },
+      {
+        name: 'Tłuszcz',
+        population: t,
+        color: '#F00',
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 15,
+      },
+      {
+        name: 'Węglowodany',
+        population: w,
+        color: '#ffffff',
+        legendFontColor: '#7F7F7F',
+        legendFontSize: 15,
+      },
+    ];
+    await AsyncStorage.setItem('wykres', JSON.stringify(data));
+    await AsyncStorage.setItem('kcal', JSON.stringify(kcal));
   }
 
   async getDateAsync() {
     const detail = await AsyncStorage.getItem('isDetails');
+
+    console.log(this.state.percent);
     this.setState({isAdmin: await AsyncStorage.getItem('isAdmin')});
     this.setState({isDetails: await AsyncStorage.getItem('isDetails')});
     this.setState({
@@ -68,7 +103,6 @@ export default class DayScreen extends Component {
       const balance = await serviceBalance.getBalanceDay(id);
       AsyncStorage.setItem('balance', JSON.stringify(balance));
       this.setState({weight: await AsyncStorage.getItem('weight')});
-      console.log(await AsyncStorage.getItem('weight'));
       if (this.checkBalanceDay(balance)) {
         this.setState({isDateBalance: true});
       }
@@ -121,38 +155,33 @@ export default class DayScreen extends Component {
   }
 
   sumValue(kcal, b, t, w) {
-    console.log((this.state.w += w));
     this.state.kcal += kcal;
     this.state.b += b;
     this.state.t += t;
     this.state.w += w;
-  }
-
-  async setAsync() {
-    await AsyncStorage.setItem('b', this.state.t);
-    await AsyncStorage.setItem('t', this.state.t);
-    await AsyncStorage.setItem('w', this.state.w);
+    this.sendToday();
   }
 
   async createBalanceDay() {
-    const data = await serviceBalance.postBalanceDay(
-      this.state.id,
-      {
-        breakfast: this.state.bf,
-        lunch: this.state.lunch,
-        dinner: this.state.dinner,
-      },
-      {
-        day: new Date().getDate().toString(),
-        month: new Date().getMonth().toString() + 1,
-        year: new Date().getFullYear().toString(),
-      },
-      this.state.b,
-      this.state.t,
-      this.state.w,
-      this.state.kcal,
-      this.state.weight,
-    );
+    // const data = await serviceBalance.postBalanceDay(
+    //   this.state.id,
+    //   {
+    //     breakfast: this.state.bf,
+    //     lunch: this.state.lunch,
+    //     dinner: this.state.dinner,
+    //   },
+    //   {
+    //     day: new Date().getDate().toString(),
+    //     month: new Date().getMonth().toString() + 1,
+    //     year: new Date().getFullYear().toString(),
+    //   },
+    //   this.state.b,
+    //   this.state.t,
+    //   this.state.w,
+    //   this.state.kcal,
+    //   this.state.weight,
+    // );
+    AsyncStorage.removeItem('weight');
   }
 
   renderBreakfastList = () => {
@@ -223,42 +252,39 @@ export default class DayScreen extends Component {
           <View style={styles.box}>
             <Meals
               text="ŚNIADANIE [ 6.00 - 11.00 ]"
-              fun={() => {
-                this.setState({kcal: 0, b: 0, t: 0, w: 0});
+              fun={() =>
                 this.props.navigation.navigate('SearchMeal', {
                   date: 'ŚNIADANIE',
-                });
-              }}
+                })
+              }
             />
             {this.renderBreakfastList()}
             <Meals
               text="OBIAD [ 11.00 - 16.00 ] "
-              fun={() => {
-                this.setState({kcal: 0, b: 0, t: 0, w: 0});
+              fun={() =>
                 this.props.navigation.navigate('SearchMeal', {
                   date: 'OBIAD',
-                });
-              }}
+                })
+              }
             />
             {this.renderLunchList()}
             <Meals
               text="KOLACJA [ 16.00 - 19.00 ]"
-              fun={() => {
-                this.setState({kcal: 0, b: 0, t: 0, w: 0});
+              fun={() =>
                 this.props.navigation.navigate('SearchMeal', {
                   date: 'KOLACJA',
-                });
-              }}
+                })
+              }
             />
             {this.renderDinnerList()}
           </View>
         </ScrollView>
         <Footer
-          kcal={Math.round(this.state.kcal)}
+          kcal={Math.round(this.state.kcal / 3)}
           kcalDetails={this.state.kcalDetails}
-          b={Math.round(this.state.b)}
-          t={Math.round(this.state.t)}
-          w={Math.round(this.state.w)}
+          b={Math.round(this.state.b / 3)}
+          t={Math.round(this.state.t / 3)}
+          w={Math.round(this.state.w / 3)}
         />
       </View>
     );

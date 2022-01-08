@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Text, TextInput} from 'react-native';
+import {StyleSheet, View, Text, TextInput, ScrollView} from 'react-native';
 import Header from '../Components/Header';
-import {BarChart, LineChart} from 'react-native-chart-kit';
+import {BarChart, LineChart, PieChart} from 'react-native-chart-kit';
 const screenWidth = Dimensions.get('window').width;
 import {Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../Components/Button3';
-import * as Progress from 'react-native-progress';
+import ProgressCircle from 'react-native-progress-circle';
 
 export default class ResultScreen extends Component {
   constructor() {
@@ -14,9 +14,27 @@ export default class ResultScreen extends Component {
     this.state = {
       weight: null,
       weightTemp: null,
-      data: '',
+      dataTime: '',
+      kcalToday: 0,
+      bToday: 2220,
+      tToday: 0,
+      wToday: 0,
+      data: [],
+      percent: 0,
     };
   }
+
+  data = {
+    labels: ['02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01'],
+    datasets: [
+      {
+        data: [93, 92.5, 92, 91.5, 91, 90.5, 90],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: ['Ostatnie 7 dni'], // optional
+  };
 
   componentDidMount() {
     this.getDateAsync();
@@ -24,7 +42,21 @@ export default class ResultScreen extends Component {
   }
 
   async getDateAsync() {
-    this.setState({weight: await AsyncStorage.getItem('weight')});
+    const detail = JSON.parse(await AsyncStorage.getItem('details'));
+    this.setState({
+      percent: Math.round(
+        ((await AsyncStorage.getItem('kcal')) / detail.kcalUserBalance) * 100,
+      ),
+    });
+
+    this.setState({
+      weight: await AsyncStorage.getItem('weight'),
+      kcalToday: await AsyncStorage.getItem('kcal'),
+      bToday: await AsyncStorage.getItem('b'),
+      tToday: await AsyncStorage.getItem('t'),
+      wToday: await AsyncStorage.getItem('w'),
+      data: JSON.parse(await AsyncStorage.getItem('wykres')),
+    });
   }
 
   async saveAsync() {
@@ -37,50 +69,26 @@ export default class ResultScreen extends Component {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
 
-    this.setState({data: date + '/' + month + '/' + year});
+    this.setState({dataTime: date + '/' + month + '/' + year});
   }
 
-  // data = {
-  //   labels: [
-  //     '1.01',
-  //     '2.01',
-  //     '3.01',
-  //     '4.01',
-  //     '5.01',
-  //     '6.01',
-  //     '1.01',
-  //     '2.01',
-  //     '3.01',
-  //     '4.01',
-  //     '5.01',
-  //     '6.01',
-  //   ],
-  //   datasets: [
-  //     {
-  //       data: [95, 105, 88, 70, 99, 43, 95, 105, 88, 70, 99, 43],
-  //       color: (opacity = 1) => `rgba(183, 0, 0, ${opacity})`,
-  //       strokeWidth: 4,
-  //     },
-  //   ],
-  //   legend: ['Waga'],
-  // };
-  // chartConfig = {
-  //   backgroundGradientFrom: '#2d2e30',
-  //   backgroundGradientFromOpacity: 0,
-  //   backgroundGradientTo: '#2d2e30',
-  //   backgroundGradientToOpacity: 0.5,
-  //   color: (opacity = 1) => `rgba(183, 0, 0, ${opacity})`,
-  //   strokeWidth: 2, // optional, default 3
-  //   barPercentage: 0.5,
-  //   useShadowColorFromDataset: false, // optional
-  // };
+  chartConfig = {
+    backgroundGradientFrom: '#1E2923',
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: '#08130D',
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 2, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+  };
 
   renderWeightInput() {
     return (
       <View style={styles.pack}>
         <View>
           <Text style={styles.dataText}>
-            {this.state.data} - UZUPEŁNIJ WAGE{' '}
+            {this.state.dataTime} - UZUPEŁNIJ WAGE{' '}
           </Text>
         </View>
         <View style={styles.box}>
@@ -104,26 +112,47 @@ export default class ResultScreen extends Component {
   render() {
     return (
       <View style={styles.background}>
-        <Header name="Postęp" />
-        <View style={styles.main}>
-          {this.state.weight === null ? this.renderWeightInput() : <View />}
-          <Progress.Circle progress={0.3} size={30} indeterminate={true} />
+        <Header name="Statystyki" navigation={this.props.navigation} />
 
-          {/*<LineChart*/}
-          {/*  data={this.data}*/}
-          {/*  width={screenWidth}*/}
-          {/*  height={220}*/}
-          {/*  chartConfig={this.chartConfig}*/}
-          {/*/>*/}
-          {/*<BarChart*/}
-          {/*  // style={graphStyle}*/}
-          {/*  data={this.data}*/}
-          {/*  width={screenWidth}*/}
-          {/*  height={220}*/}
-          {/*  // yAxisLabel="$"*/}
-          {/*  chartConfig={this.chartConfig}*/}
-          {/*  verticalLabelRotation={30}*/}
-          {/*/>*/}
+        <View style={styles.main}>
+          <View style={styles.weight}>
+            {this.state.weight === null ? this.renderWeightInput() : <View />}
+          </View>
+          <ScrollView style={styles.scrollview}>
+            <View style={styles.progress}>
+              <Text style={styles.progressText}>Dostarczone kalorie</Text>
+              <ProgressCircle
+                percent={this.state.percent}
+                radius={50}
+                borderWidth={8}
+                color="#b70000"
+                shadowColor="#708090"
+                bgColor="#fff">
+                <Text style={{fontSize: 28}}>{this.state.percent + '%'}</Text>
+              </ProgressCircle>
+
+              <Text style={styles.progressText}>
+                Dostarczone wartości odżywcze
+              </Text>
+              <PieChart
+                data={this.state.data}
+                width={screenWidth}
+                height={220}
+                chartConfig={this.chartConfig}
+                accessor={'population'}
+                backgroundColor={'transparent'}
+                paddingLeft={'15'}
+                center={[10, 20]}
+              />
+              <Text style={styles.progressText}>Waga</Text>
+              <LineChart
+                data={this.data}
+                width={screenWidth}
+                height={220}
+                chartConfig={this.chartConfig}
+              />
+            </View>
+          </ScrollView>
         </View>
       </View>
     );
@@ -136,7 +165,11 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#181818',
   },
-  main: {marginTop: 30, width: '100%', height: '20%', justifyContent: 'center'},
+  main: {
+    marginTop: 10,
+    width: '100%',
+    justifyContent: 'center',
+  },
   input: {
     width: 265,
     margin: 5,
@@ -161,12 +194,32 @@ const styles = StyleSheet.create({
   weightText: {
     color: 'white',
   },
+  progressText: {
+    fontSize: 15,
+    margin: 15,
+    color: 'white',
+  },
   dataText: {
     color: 'white',
     fontSize: 20,
+    marginTop: 10,
   },
   pack: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  weight: {
+    marginLeft: 15,
+    marginRight: 15,
+    borderWidth: 1,
+    borderColor: '#b70000',
+  },
+  progress: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scrollview: {
+    height: '80%',
+    width: '100%',
   },
 });

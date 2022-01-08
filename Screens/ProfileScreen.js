@@ -29,7 +29,7 @@ export default class ProfileScreen extends Component {
   async getAsync() {
     const details = await AsyncStorage.getItem('details');
     const email = await AsyncStorage.getItem('email');
-    
+
     this.setState({
       details: JSON.parse(details),
       email: email,
@@ -42,37 +42,38 @@ export default class ProfileScreen extends Component {
       <View>
         <View style={styles.down}>
           <Text style={styles.title}>Twoje dane</Text>
-          <Text style={styles.title}>{this.state.email}</Text>
-          <View style={styles.tableTop}>
-            <Text>Test</Text>
-          </View>
+          <View style={styles.tableTop} />
           <View style={styles.table} />
           <View style={styles.table}>
-            <View style={styles.tableIn} />
-            <View style={styles.tableOn} />
+            <View style={styles.box}>
+              <Text style={styles.tableText}>Data urodzenia:</Text>
+            </View>
+
+            <Text style={styles.tableText}>
+              {this.state.details.dateOfBirth.day}/
+              {this.state.details.dateOfBirth.month}/
+              {this.state.details.dateOfBirth.year}
+            </Text>
           </View>
           <View style={styles.table}>
-            <View style={styles.tableIn} />
-            <View style={styles.tableOn} />
+            <View style={styles.box}>
+              <Text style={styles.tableText}>Płeć:</Text>
+            </View>
+            <Text style={styles.tableText}>{this.state.details.gender}</Text>
           </View>
           <View style={styles.table}>
-            <View style={styles.tableIn} />
-            <View style={styles.tableOn} />
+            <View style={styles.box}>
+              <Text style={styles.tableText}>Wzrost:</Text>
+            </View>
+            <Text style={styles.tableText}>{this.state.details.height}</Text>
+          </View>
+          <View style={styles.table}>
+            <View style={styles.box}>
+              <Text style={styles.tableText}>Waga:</Text>
+            </View>
+            <Text style={styles.tableText}>{this.state.details.weight}</Text>
           </View>
         </View>
-
-        <Text>Twoje Dane:</Text>
-        <Text>{this.state.details.gender}</Text>
-        <Text>
-          {this.state.details.dateOfBirth.day}{' '}
-          {this.state.details.dateOfBirth.month}{' '}
-          {this.state.details.dateOfBirth.year}
-        </Text>
-        <Text>{this.state.details.height}</Text>
-        <Text>{this.state.details.activity}</Text>
-        <Text>{this.state.details.type}</Text>
-        <Text>{this.state.details.somatotyp}</Text>
-        <Text>{this.state.details.kcalUserBalance}</Text>
       </View>
     );
   }
@@ -80,7 +81,7 @@ export default class ProfileScreen extends Component {
   render() {
     return (
       <View style={styles.background}>
-        <Header name="Profil" />
+        <Header name="Profil" navigation={this.props.navigation} />
         <View
           style={{
             flexDirection: 'row',
@@ -101,6 +102,7 @@ export default class ProfileScreen extends Component {
             }}
           />
           <View style={styles.buttons}>
+            <Text style={styles.email}>{this.state.email}</Text>
             <TouchableOpacity
               onPress={() => this.changeViewProfile()}
               style={styles.button}>
@@ -109,7 +111,7 @@ export default class ProfileScreen extends Component {
             <TouchableOpacity
               onPress={() => this.changeViewProfile()}
               style={styles.button}>
-              <Text style={styles.buttonText}>Zmień </Text>
+              <Text style={styles.buttonText}>Edytuj Dane</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -141,95 +143,34 @@ const styles = StyleSheet.create({
     fontSize: 19,
   },
   down: {
-    margin: 15,
-    height: '50%',
+    margin: 20,
     backgroundColor: '#333333',
   },
   table: {
     justifyContent: 'flex-start',
     flexDirection: 'row',
-    margin: 10,
+    margin: 5,
     paddingBottom: 10,
     borderWidth: 4,
     borderColor: '#333333',
     borderBottomColor: '#999999',
   },
   tableText: {
-    color: '#b70000',
+    color: 'white',
     fontSize: 15,
-    fontWeight: '700',
-  },
-  tableTopText: {
-    color: 'white',
-  },
-  tableDownText: {
-    color: 'white',
-  },
-  tableIn: {
-    width: '30%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  },
-  tableOn: {
-    width: '60%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginLeft: 30,
-  },
-  tableTop: {
-    marginTop: 20,
-    marginBottom: -10,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginLeft: 140,
   },
   title: {
     fontSize: 20,
     color: 'white',
     textAlign: 'center',
-    padding: 10,
+    marginTop: 15,
   },
-  eat: {
-    height: '4%',
-    width: '100%',
-    backgroundColor: '#b70000',
-    borderWidth: 2,
-    marginTop: -10,
-    borderColor: '#333333',
-  },
-  eatText: {
+  email: {
+    fontSize: 20,
     color: 'white',
-    textAlign: 'center',
+    marginBottom: 30,
   },
-  input: {
-    width: 40,
-    marginLeft: 65,
-    paddingLeft: 10,
-    paddingTop: 5,
-    paddingBottom: 5,
-    borderColor: '#b70000',
-    borderWidth: 2,
-    color: 'white',
-  },
-  topBox: {
-    margin: 10,
-    width: '95%',
-    height: '15%',
-    backgroundColor: '#333333',
-    flexDirection: 'row',
-  },
-  topBoxText1: {
-    color: 'white',
-    marginLeft: 180,
-    marginTop: 10,
-  },
-  topBoxText: {
-    color: 'white',
-    marginLeft: 100,
-    marginTop: 10,
-  },
-  topBoxText2: {
-    color: 'white',
-    margin: 10,
+  box: {
+    width: 170,
   },
 });
