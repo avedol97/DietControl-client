@@ -13,7 +13,7 @@ export default class ProductService extends Component {
     calories,
     packaging,
   ) => {
-    await fetch(this.baseUrl + 'user/product', {
+    await fetch(this.baseUrl + 'product', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -33,7 +33,7 @@ export default class ProductService extends Component {
   };
 
   getAllProduct = async () => {
-    return await fetch(this.baseUrl + 'user/product/all', {
+    return await fetch(this.baseUrl + 'products/all', {
       method: 'GET',
       headers: {
         Accept: 'application/json',

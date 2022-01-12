@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
-  View,
-  ScrollView,
   ActivityIndicator,
-  TouchableOpacity,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import Header from '../Components/HeaderBack';
 import MySpeedDial from '../Components/MySpeedDial';
@@ -24,12 +25,19 @@ export default class SearchMealScreen extends Component {
       isLoading: true,
       date: null,
       productListFilter: null,
+      isFetching: false,
     };
   }
 
   componentDidMount() {
-    this.getProductList().then(r => console.log('Oks'));
+    this.getProductList().then(r => console.log(r));
   }
+
+  onRefresh = () => {
+    this.setState({isFetching: true}, () => {
+      this.setState({isFetching: false}), this.getProductList();
+    });
+  };
 
   componentDidUpdate(
     prevProps: Readonly<P>,
@@ -38,14 +46,14 @@ export default class SearchMealScreen extends Component {
   ) {
     const {date} = this.props.route.params;
     if (this.state.date !== date) {
-      console.log('poraDnia' + date);
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({date: date});
     }
   }
 
   async getProductList() {
     try {
-      const data = await service.getAllProduct();
+      const data = (await service.getAllProduct()).reverse();
       this.setState({
         productList: data,
         productListFilter: data,
@@ -111,7 +119,14 @@ export default class SearchMealScreen extends Component {
             />
           </View>
 
-          <ScrollView style={styles.scrollView}>
+          <ScrollView
+            style={styles.scrollView}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.isFetching}
+                onRefresh={this.onRefresh}
+              />
+            }>
             {!this.state.isLoading ? (
               this.renderProductList()
             ) : (
@@ -121,10 +136,7 @@ export default class SearchMealScreen extends Component {
             )}
           </ScrollView>
         </View>
-
-        <View style={styles.speedDial}>
-          <MySpeedDial navigation={this.props.navigation} />
-        </View>
+        <MySpeedDial navigation={this.props.navigation} />
       </View>
     );
   }
@@ -133,7 +145,7 @@ export default class SearchMealScreen extends Component {
 const styles = StyleSheet.create({
   background: {
     width: '100%',
-    height: '70%',
+    height: '85%',
   },
   animation: {
     marginTop: '60%',
@@ -144,7 +156,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     width: '100%',
-    height: '80%',
+    height: '90%',
   },
   eat: {
     height: '4%',
@@ -157,10 +169,6 @@ const styles = StyleSheet.create({
   eatText: {
     color: 'white',
     textAlign: 'center',
-  },
-  speedDial: {
-    position: 'static',
-    left: 365,
   },
   search: {
     margin: 10,

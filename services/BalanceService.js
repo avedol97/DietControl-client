@@ -13,7 +13,7 @@ export default class DetailsService extends Component {
     kcalToday,
     weight,
   ) => {
-    await fetch(this.baseUrl + 'user/balance', {
+    await fetch(this.baseUrl + 'balance', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -33,7 +33,7 @@ export default class DetailsService extends Component {
   };
 
   getBalanceDay = async id => {
-    return await fetch(this.baseUrl + 'user/balance?id=' + id, {
+    return await fetch(this.baseUrl + 'balance?id=' + id, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

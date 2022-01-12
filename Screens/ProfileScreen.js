@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ActivityIndicator,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import Header from '../Components/Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Avatar} from 'react-native-elements';
+import OverlayPassword from '../Components/OverlayPassword';
+import OverlayData from '../Components/OverlayData';
 
 export default class ProfileScreen extends Component {
   constructor() {
@@ -103,16 +98,8 @@ export default class ProfileScreen extends Component {
           />
           <View style={styles.buttons}>
             <Text style={styles.email}>{this.state.email}</Text>
-            <TouchableOpacity
-              onPress={() => this.changeViewProfile()}
-              style={styles.button}>
-              <Text style={styles.buttonText}>Zmień Avatar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.changeViewProfile()}
-              style={styles.button}>
-              <Text style={styles.buttonText}>Edytuj Dane</Text>
-            </TouchableOpacity>
+            <OverlayPassword />
+            <OverlayData />
           </View>
         </View>
         {this.state.isLoading ? this.renderProfile() : <View />}

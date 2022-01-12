@@ -11,7 +11,7 @@ export default function Button(props) {
 
 const styles = StyleSheet.create({
   button: {
-    width:200,
+    width: 200,
     height: 50,
     margin: 20,
     paddingLeft: 20,
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     backgroundColor: '#333333',
-    borderWidth:3,
-    borderColor:'#b70000',
+    borderWidth: 3,
+    borderColor: '#b70000',
   },
   button__text: {
     color: 'white',

@@ -113,47 +113,44 @@ export default class ResultScreen extends Component {
     return (
       <View style={styles.background}>
         <Header name="Statystyki" navigation={this.props.navigation} />
-
-        <View style={styles.main}>
+        <ScrollView style={styles.scrollview}>
           <View style={styles.weight}>
             {this.state.weight === null ? this.renderWeightInput() : <View />}
           </View>
-          <ScrollView style={styles.scrollview}>
-            <View style={styles.progress}>
-              <Text style={styles.progressText}>Dostarczone kalorie</Text>
-              <ProgressCircle
-                percent={this.state.percent}
-                radius={50}
-                borderWidth={8}
-                color="#b70000"
-                shadowColor="#708090"
-                bgColor="#fff">
-                <Text style={{fontSize: 28}}>{this.state.percent + '%'}</Text>
-              </ProgressCircle>
+          <View style={styles.progress}>
+            <Text style={styles.progressText}>Dostarczone kalorie</Text>
+            <ProgressCircle
+              percent={this.state.percent}
+              radius={50}
+              borderWidth={8}
+              color="#b70000"
+              shadowColor="#708090"
+              bgColor="#fff">
+              <Text style={{fontSize: 28}}>{this.state.percent + '%'}</Text>
+            </ProgressCircle>
 
-              <Text style={styles.progressText}>
-                Dostarczone wartości odżywcze
-              </Text>
-              <PieChart
-                data={this.state.data}
-                width={screenWidth}
-                height={220}
-                chartConfig={this.chartConfig}
-                accessor={'population'}
-                backgroundColor={'transparent'}
-                paddingLeft={'15'}
-                center={[10, 20]}
-              />
-              <Text style={styles.progressText}>Waga</Text>
-              <LineChart
-                data={this.data}
-                width={screenWidth}
-                height={220}
-                chartConfig={this.chartConfig}
-              />
-            </View>
-          </ScrollView>
-        </View>
+            <Text style={styles.progressText}>
+              Dostarczone wartości odżywcze
+            </Text>
+            <PieChart
+              data={this.state.data}
+              width={screenWidth}
+              height={220}
+              chartConfig={this.chartConfig}
+              accessor={'population'}
+              backgroundColor={'transparent'}
+              paddingLeft={'15'}
+              center={[10, 20]}
+            />
+            <Text style={styles.progressText}>Waga</Text>
+            <LineChart
+              data={this.data}
+              width={screenWidth}
+              height={220}
+              chartConfig={this.chartConfig}
+            />
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -164,11 +161,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: '#181818',
-  },
-  main: {
-    marginTop: 10,
-    width: '100%',
-    justifyContent: 'center',
   },
   input: {
     width: 265,

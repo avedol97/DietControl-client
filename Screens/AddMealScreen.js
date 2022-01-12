@@ -56,7 +56,7 @@ export default class AddMealScreen extends Component {
         this.state.packaging,
       );
       Alert.alert('Pomyslnie dodano produkt!');
-      this.props.navigation.navigate('SearchMeal');
+      this.props.navigation.navigate('SearchMeal', {date: 'OBIAD'});
     } else {
       Alert.alert('Uzupelnij wszystkie pola!');
     }
@@ -99,6 +99,8 @@ export default class AddMealScreen extends Component {
           <TextInput
             placeholder="USTAW"
             placeholderTextColor="white"
+            showSoftInputOnFocus={false}
+            keyboardType="numeric"
             style={styles.input}
             onChangeText={protein => this.setState({protein: protein})}
           />
@@ -108,6 +110,8 @@ export default class AddMealScreen extends Component {
           <TextInput
             placeholder="USTAW"
             placeholderTextColor="white"
+            showSoftInputOnFocus={false}
+            keyboardType="numeric"
             style={styles.input}
             onChangeText={fat => this.setState({fat: fat})}
           />
@@ -117,6 +121,8 @@ export default class AddMealScreen extends Component {
           <TextInput
             placeholder="USTAW"
             placeholderTextColor="white"
+            showSoftInputOnFocus={false}
+            keyboardType="numeric"
             style={styles.input}
             onChangeText={carbohydrates =>
               this.setState({carbohydrates: carbohydrates})
@@ -129,6 +135,8 @@ export default class AddMealScreen extends Component {
             <TextInput
               placeholder=" USTAW"
               placeholderTextColor="white"
+              showSoftInputOnFocus={false}
+              keyboardType="numeric"
               style={styles.inputCalorie}
               onChangeText={calories => this.setState({calories: calories})}
             />

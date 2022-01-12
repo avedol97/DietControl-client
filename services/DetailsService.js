@@ -6,14 +6,14 @@ export default class DetailsService extends Component {
   postDetails = async (
     id,
     gender,
-    date,
+    dateOfBirth,
     height,
     weight,
     activity,
-    type,
-    somatotyp,
+    purpose,
+    somatic,
   ) => {
-    await fetch(this.baseUrl + 'user/details', {
+    await fetch(this.baseUrl + 'details', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -22,18 +22,18 @@ export default class DetailsService extends Component {
       body: JSON.stringify({
         id: id,
         gender: gender,
-        date: date,
+        dateOfBirth: dateOfBirth,
         height: height,
         weight: weight,
         activity: activity,
-        type: type,
-        somatotyp: somatotyp,
+        purpose: purpose,
+        somatic: somatic,
       }),
     }).then(response => console.log(response));
   };
 
   getDetails = async id => {
-    return await fetch(this.baseUrl + 'user/details?id=' + id, {
+    return await fetch(this.baseUrl + 'details?id=' + id, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

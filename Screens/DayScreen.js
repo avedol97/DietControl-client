@@ -40,9 +40,9 @@ export default class DayScreen extends Component {
   }
 
   componentDidMount() {
-    this.getDateAsync();
-    this.get();
-    this.createBalanceDay();
+    this.getDateAsync().then(console.log('1'));
+    this.get().then(console.log('2'));
+    this.createBalanceDay().then(console.log('3'));
   }
 
   async sendToday() {
@@ -79,18 +79,16 @@ export default class DayScreen extends Component {
 
   async getDateAsync() {
     const detail = await AsyncStorage.getItem('isDetails');
-
-    console.log(this.state.percent);
-    this.setState({isAdmin: await AsyncStorage.getItem('isAdmin')});
-    this.setState({isDetails: await AsyncStorage.getItem('isDetails')});
-    this.setState({
-      bf: JSON.parse(await AsyncStorage.getItem('bf')),
-      lunch: JSON.parse(await AsyncStorage.getItem('lunch')),
-      dinner: JSON.parse(await AsyncStorage.getItem('dinner')),
-      isLoading: false,
-    });
     if (detail === 'false') {
       this.props.navigation.navigate('Details');
+    } else {
+      this.setState({
+        isAdmin: await AsyncStorage.getItem('isAdmin'),
+        bf: JSON.parse(await AsyncStorage.getItem('bf')),
+        lunch: JSON.parse(await AsyncStorage.getItem('lunch')),
+        dinner: JSON.parse(await AsyncStorage.getItem('dinner')),
+        isLoading: false,
+      });
     }
   }
 

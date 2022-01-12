@@ -27,11 +27,11 @@ const DetailsScreen = ({navigation}) => {
   const [weight, setWeight] = useState();
 
   const [gender, setGender] = React.useState();
-  const [date, setDate] = useState(new Date());
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
 
   const [activity, setActivity] = useState();
   const [purpose, setPurpose] = useState();
-  const [somatic, setSomatic] = useState();
+  const [somatic, setSomatic] = useState('STANDARD');
 
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -48,7 +48,7 @@ const DetailsScreen = ({navigation}) => {
       month: month.toString(),
       year: year.toString(),
     };
-    setDate(date);
+    setDateOfBirth(date);
     setText(day + '-' + month + '-' + year);
   };
 
@@ -63,7 +63,7 @@ const DetailsScreen = ({navigation}) => {
 
   const createDetails = async (
     gender,
-    date,
+    dateOfBirth,
     height,
     weight,
     activity,
@@ -71,21 +71,24 @@ const DetailsScreen = ({navigation}) => {
     somatic,
   ) => {
     const id = await AsyncStorage.getItem('userId');
-    if (date === undefined || height === undefined || weight === undefined) {
+    if (
+      dateOfBirth === undefined ||
+      height === undefined ||
+      weight === undefined
+    ) {
       alert(' Musisz uzupełnić wszystkie dane!');
     } else {
       const data = await service.postDetails(
         id,
         gender,
-        date,
+        dateOfBirth,
         height,
         weight,
         activity,
         purpose,
         somatic,
       );
-
-      await serviceUser.changeDetails(id);
+      const change = await serviceUser.changeDetails(id);
       Alert.alert('Pomyślnie uzupełniono dane!');
       await navigation.navigate('Auth');
     }
@@ -134,12 +137,16 @@ const DetailsScreen = ({navigation}) => {
           <TextInput
             placeholder="USTAW WZROST"
             placeholderTextColor="white"
+            showSoftInputOnFocus={false}
+            keyboardType="numeric"
             style={styles.input}
             onChangeText={height => setHeight(height)}
           />
           <Text style={styles.mainText}>WAGA[KG]</Text>
           <TextInput
             placeholder=" USTAW WAGĘ"
+            showSoftInputOnFocus={false}
+            keyboardType="numeric"
             placeholderTextColor="white"
             style={styles.input}
             onChangeText={weight => setWeight(weight)}
@@ -150,7 +157,7 @@ const DetailsScreen = ({navigation}) => {
             {show && (
               <DateTimePicker
                 testID="dateTimePicker"
-                value={date}
+                value={dateOfBirth}
                 mode={mode}
                 is24Hour={true}
                 display="default"
@@ -227,7 +234,15 @@ const DetailsScreen = ({navigation}) => {
           <Button
             text="ZAPISZ"
             fun={() =>
-              createDetails(gender, date, height, weight, activity, purpose)
+              createDetails(
+                gender,
+                dateOfBirth,
+                height,
+                weight,
+                activity,
+                purpose,
+                somatic,
+              )
             }
           />
         </View>

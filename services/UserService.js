@@ -52,6 +52,49 @@ export default class UserService extends Component {
       });
   };
 
+  changePassword = async (email, password, newPassword) => {
+    return await fetch(this.baseUrl + 'user/password', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        password,
+        newPassword,
+      }),
+    })
+      .then(response => console.log(response))
+      .then(async data => {
+        return data;
+      })
+      .catch(error => {
+        console.log('POST error: ' + error);
+      });
+  };
+
+  changeDate = async (id, weight, activity, purpose) => {
+    return await fetch(this.baseUrl + 'details/update', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id,
+        weight,
+        activity,
+        purpose,
+      }),
+    })
+      .then(response => console.log(response))
+      .then(async data => {
+        return data;
+      })
+      .catch(error => {
+        console.log('POST error: ' + error);
+      });
+  };
+
   signup = async (email, password) => {
     await fetch(this.baseUrl + 'guest/signup', {
       method: 'POST',
