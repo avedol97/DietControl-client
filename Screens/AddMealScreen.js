@@ -5,7 +5,6 @@ import Header from '../Components/HeaderBack';
 import {Picker} from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProductService from '../services/ProductService';
-import UserService from '../services/UserService';
 
 const service = new ProductService();
 
@@ -25,7 +24,7 @@ export default class AddMealScreen extends Component {
   }
 
   componentDidMount() {
-    this.getUserId().then(r => console.log('Ok'));
+    this.getUserId().then(r => console.log(r));
   }
 
   async getUserId() {
@@ -173,9 +172,10 @@ const styles = StyleSheet.create({
   mainText: {
     marginLeft: 10,
     fontSize: 14,
-    color: '#b70000',
+    color: '#ff8243',
     marginBottom: -3,
-    marginTop: 4,
+    marginTop: 10,
+    fontFamily: 'Domine-Bold',
   },
   input: {
     margin: 5,
@@ -185,6 +185,7 @@ const styles = StyleSheet.create({
     borderColor: '#708090',
     borderWidth: 3,
     color: 'white',
+    fontFamily: 'Exo2-ExtraLightItalic',
   },
   inputCalorie: {
     width: 265,
@@ -195,6 +196,7 @@ const styles = StyleSheet.create({
     borderColor: '#708090',
     borderWidth: 3,
     color: 'white',
+    fontFamily: 'Exo2-ExtraLightItalic',
   },
   container: {
     margin: 5,

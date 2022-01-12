@@ -43,7 +43,7 @@ const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = () => {
         <Text style={styles.buttonText}>Edytuj Dane</Text>
       </TouchableOpacity>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
-        <Text>WAGA [kg]</Text>
+        <Text style={styles.mainText}>WAGA [kg]</Text>
         <TextInput
           onChangeText={weight => setWeight(weight)}
           textAlign={'center'}
@@ -51,7 +51,7 @@ const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = () => {
           placeholder="   OCBECNA WAGA"
           placeholderTextColor="white"
         />
-        <Text>AKTYWNOŚĆ</Text>
+        <Text style={styles.mainText}>AKTYWNOŚĆ</Text>
         <Picker
           selectedValue={activity}
           style={styles.picker}
@@ -64,7 +64,7 @@ const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = () => {
           <Picker.Item label="BARDZO AKTYWNY TRYB ŻYCIA" value="1.8" />
           <Picker.Item label="WYCZYNOWY TRYB ŻYCIA" value="2.0" />
         </Picker>
-        <Text>CEL</Text>
+      <Text style={styles.mainText}>CEL</Text>
         <Picker
           selectedValue={purpose}
           style={styles.picker}
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 180,
     borderWidth: 2,
-    backgroundColor: '#b70000',
+    backgroundColor: '#ff8243',
     borderColor: '#999999',
     justifyContent: 'center',
   },
@@ -98,13 +98,14 @@ const styles = StyleSheet.create({
     margin: 2,
     height: 30,
     borderWidth: 2,
-    backgroundColor: '#b70000',
+    backgroundColor: '#ff8243',
     borderColor: '#999999',
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
     fontSize: 19,
+    fontFamily: 'Domine-Bold'
   },
   input: {
     width: 300,
@@ -113,12 +114,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     color: 'white',
+    fontFamily: 'Domine-Bold',
   },
   picker: {
     color: 'white',
     marginTop: 5,
     backgroundColor: '#999999',
   },
+  mainText: {
+    margin: 10,
+    fontFamily: 'Domine-Bold',
+  }
 });
 
 export default OverlayComponent;

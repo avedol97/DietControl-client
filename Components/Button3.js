@@ -20,11 +20,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     backgroundColor: '#333333',
     borderWidth: 3,
-    borderColor: '#b70000',
+    borderColor: '#ff8243',
   },
   button__text: {
     color: 'white',
     textAlign: 'center',
     fontSize: 20,
+    fontFamily: 'Domine-Bold',
   },
 });

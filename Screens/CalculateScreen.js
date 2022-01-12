@@ -230,18 +230,20 @@ const styles = StyleSheet.create({
     borderBottomColor: '#999999',
   },
   tableText: {
-    color: '#b70000',
+    color: '#ff8243',
     fontSize: 15,
-    fontWeight: '700',
+    fontFamily: 'Domine-Bold',
   },
   tableTopText: {
     color: 'white',
+    fontFamily: 'Domine-Bold',
   },
   tableDownText: {
     color: 'white',
+    fontFamily: 'Domine-Bold',
   },
   tableIn: {
-    width: '30%',
+    width: '31%',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
@@ -263,11 +265,12 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     padding: 10,
+    fontFamily: 'Domine-Bold',
   },
   eat: {
     height: '4%',
     width: '100%',
-    backgroundColor: '#b70000',
+    backgroundColor: '#ff8243',
     borderWidth: 2,
     marginTop: -10,
     borderColor: '#333333',
@@ -275,6 +278,7 @@ const styles = StyleSheet.create({
   eatText: {
     color: 'white',
     textAlign: 'center',
+    fontFamily: 'Exo2-Light',
   },
   input: {
     width: 40,
@@ -282,9 +286,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingTop: 5,
     paddingBottom: 5,
-    borderColor: '#b70000',
+    borderColor: '#ff8243',
     borderWidth: 2,
     color: 'white',
+    fontFamily: 'Domine-Bold',
   },
   topBox: {
     margin: 10,
@@ -292,19 +297,23 @@ const styles = StyleSheet.create({
     height: '15%',
     backgroundColor: '#333333',
     flexDirection: 'row',
+    fontFamily: 'Domine-Bold',
   },
   topBoxText1: {
     color: 'white',
     marginLeft: 180,
     marginTop: 10,
+    fontFamily: 'Domine-Bold',
   },
   topBoxText: {
     color: 'white',
     marginLeft: 100,
     marginTop: 10,
+    fontFamily: 'Domine-Bold',
   },
   topBoxText2: {
     color: 'white',
     margin: 10,
+    fontFamily: 'Domine-Bold',
   },
 });

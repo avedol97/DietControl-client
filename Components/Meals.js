@@ -19,18 +19,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#b70000',
+    backgroundColor: '#ff8243',
     padding: 5,
     marginTop: 10,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   part__text: {
-    marginLeft: 20,
+    marginLeft: 30,
     color: 'white',
     fontSize: 18,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Domine-Bold',
   },
   button: {
     height: 30,
@@ -40,7 +40,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginRight: 15,
     marginTop: 5,
-
   },
   button__text: {
     fontSize: 22,

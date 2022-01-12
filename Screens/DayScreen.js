@@ -40,9 +40,13 @@ export default class DayScreen extends Component {
   }
 
   componentDidMount() {
-    this.getDateAsync().then(console.log('1'));
-    this.get().then(console.log('2'));
-    this.createBalanceDay().then(console.log('3'));
+    this.getDateAsync();
+    this.get();
+    this.createBalanceDay();
+  }
+
+  componentWillUnmount() {
+    AsyncStorage.removeItem('isDetails');
   }
 
   async sendToday() {
@@ -54,14 +58,14 @@ export default class DayScreen extends Component {
       {
         name: 'Białko',
         population: b,
-        color: 'rgba(131, 167, 234, 1)',
+        color: '#708090',
         legendFontColor: '#7F7F7F',
         legendFontSize: 15,
       },
       {
         name: 'Tłuszcz',
         population: t,
-        color: '#F00',
+        color: '#ff8243',
         legendFontColor: '#7F7F7F',
         legendFontSize: 15,
       },
@@ -115,7 +119,7 @@ export default class DayScreen extends Component {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
 
-    return day + '/' + month + '/' + year;
+    return day + '.0' + month + '.' + year;
   }
 
   checkBalanceDay(balance) {
@@ -249,7 +253,7 @@ export default class DayScreen extends Component {
         <ScrollView>
           <View style={styles.box}>
             <Meals
-              text="ŚNIADANIE [ 6.00 - 11.00 ]"
+              text="ŚNIADANIE"
               fun={() =>
                 this.props.navigation.navigate('SearchMeal', {
                   date: 'ŚNIADANIE',
@@ -258,7 +262,7 @@ export default class DayScreen extends Component {
             />
             {this.renderBreakfastList()}
             <Meals
-              text="OBIAD [ 11.00 - 16.00 ] "
+              text="OBIAD "
               fun={() =>
                 this.props.navigation.navigate('SearchMeal', {
                   date: 'OBIAD',
@@ -267,7 +271,7 @@ export default class DayScreen extends Component {
             />
             {this.renderLunchList()}
             <Meals
-              text="KOLACJA [ 16.00 - 19.00 ]"
+              text="KOLACJA"
               fun={() =>
                 this.props.navigation.navigate('SearchMeal', {
                   date: 'KOLACJA',

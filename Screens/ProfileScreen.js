@@ -91,7 +91,7 @@ export default class ProfileScreen extends Component {
             // title="Ty"
             icon={{name: 'adb', type: 'material'}}
             containerStyle={{
-              backgroundColor: '#b70000',
+              backgroundColor: '#ff8243',
               borderColor: '#999999',
               borderWidth: 2,
             }}
@@ -117,18 +117,6 @@ const styles = StyleSheet.create({
   buttons: {
     justifyContent: 'center',
   },
-  button: {
-    margin: 2,
-    height: 30,
-    borderWidth: 2,
-    backgroundColor: '#b70000',
-    borderColor: '#999999',
-  },
-  buttonText: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 19,
-  },
   down: {
     margin: 20,
     backgroundColor: '#333333',
@@ -145,17 +133,20 @@ const styles = StyleSheet.create({
   tableText: {
     color: 'white',
     fontSize: 15,
+    fontFamily: 'Domine-Bold',
   },
   title: {
     fontSize: 20,
     color: 'white',
     textAlign: 'center',
     marginTop: 15,
+    fontFamily: 'PermanentMarker-Regular',
   },
   email: {
     fontSize: 20,
     color: 'white',
     marginBottom: 30,
+    fontFamily: 'PermanentMarker-Regular',
   },
   box: {
     width: 170,

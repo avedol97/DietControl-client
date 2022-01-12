@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderWidth: 4,
-    borderBottomColor: '#b70000',
+    borderBottomColor: '#ff8243',
     borderColor: '#2d2e30',
-    paddingTop: 5,
+    paddingTop: 1,
   },
   line: {
     display: 'flex',
@@ -49,11 +49,13 @@ const styles = StyleSheet.create({
   text_line_one: {
     fontSize: 12,
     textAlign: 'center',
-    color: '#b70000',
+    color: '#ff8243',
+    fontFamily: 'Domine-SemiBold',
   },
   text_line_two: {
-    fontSize: 14,
+    fontSize: 15,
     textAlign: 'center',
     color: 'white',
+    fontFamily: 'Exo2-Light',
   },
 });

@@ -77,6 +77,7 @@ export default class LoginScreen extends Component {
               style={styles.login__input}
               placeholder="Hasło"
               placeholderTextColor="white"
+              placeholderF
             />
           </View>
           <TouchableOpacity
@@ -89,7 +90,6 @@ export default class LoginScreen extends Component {
               this.props.navigation.navigate('Start');
             }}
             style={styles.login__text}>
-            {' '}
             Chcesz wrócić? <Text style={styles.menu}>Menu</Text>
           </Text>
         </View>
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     // backgroundColor: '#999999',
     color: 'white',
     alignItems: 'center',
+    fontFamily: 'Domine-Bold',
   },
   login__image: {
     flex: 1,
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
   login__text: {
     color: 'white',
     textAlign: 'center',
+    fontFamily: 'Domine-Bold',
   },
   button: {
     paddingLeft: 30,
@@ -163,12 +165,14 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 30,
+    fontFamily: 'Domine-Bold',
   },
   topText: {
     marginTop: 130,
     marginLeft: 220,
     color: 'white',
     fontSize: 25,
+    fontFamily: 'PermanentMarker-Regular',
   },
   menu: {
     color: '#ff8243',

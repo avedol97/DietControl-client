@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const image = require('../assets/images/start.jpg');
 export default class StartScreen extends Component {
   render() {
     return (
@@ -18,7 +17,7 @@ export default class StartScreen extends Component {
           <TouchableOpacity
             style={styles.button1}
             onPress={() => this.props.navigation.navigate('Mission')}>
-            <Text style={styles.text}>O Aplikacji</Text>
+            <Text style={styles.text}>APLIKACJA</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#2d2e30',
   },
   button1: {
-    width: 180,
+    width: 190,
     height: 100,
     borderWidth: 4,
     borderColor: 'white',
@@ -65,13 +64,13 @@ const styles = StyleSheet.create({
     marginLeft: -90,
   },
   button3: {
-    width: 220,
-    height: 120,
+    width: 210,
+    height: 110,
     borderWidth: 4,
     borderColor: 'white',
     borderRadius: 20,
     textAlign: 'center',
-    marginTop: -130,
+    marginTop: -120,
     marginLeft: -130,
   },
   login__image: {
@@ -114,6 +113,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 30,
     fontSize: 20,
+    fontFamily: 'PermanentMarker-Regular',
   },
   main: {
     height: '0%',

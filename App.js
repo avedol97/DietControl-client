@@ -30,10 +30,10 @@ export default class App extends Component {
     return (
       <Tab.Navigator
         initialRouteName="TestScreen"
-        activeColor="#ff0000"
+        activeColor="#ff8243"
         inactiveColor="#fff"
         barStyle={{backgroundColor: '#2d2e30'}}
-        activeTintColor="#ff0000">
+        activeTintColor="#ff8243">
         <Tab.Screen
           name="Day"
           unmountOnBlur={true}
@@ -46,7 +46,7 @@ export default class App extends Component {
               <Icon
                 name="calendar"
                 size={22}
-                color={focused ? '#b70000' : 'white'}
+                color={focused ? '#ff8243' : 'white'}
               />
             ),
           }}
@@ -62,7 +62,7 @@ export default class App extends Component {
               <Icon
                 name="calculator"
                 size={22}
-                color={focused ? '#b70000' : 'white'}
+                color={focused ? '#ff8243' : 'white'}
               />
             ),
           }}
@@ -78,7 +78,7 @@ export default class App extends Component {
               <Icon
                 name="list"
                 size={23}
-                color={focused ? '#b70000' : 'white'}
+                color={focused ? '#ff8243' : 'white'}
               />
             ),
           }}

@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   eat: {
     height: '4%',
     width: '100%',
-    backgroundColor: '#b70000',
+    backgroundColor: '#ff8243',
     borderWidth: 2,
     marginTop: -10,
     borderColor: '#333333',
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
   eatText: {
     color: 'white',
     textAlign: 'center',
+    fontFamily: 'Exo2-Light',
   },
   search: {
     margin: 10,
@@ -186,6 +187,7 @@ const styles = StyleSheet.create({
     width: '80%',
     color: 'black',
     fontSize: 12,
+    fontFamily: 'Domine-Medium',
   },
   iconBox: {
     width: '10%',

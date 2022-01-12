@@ -29,7 +29,7 @@ export default class ResultScreen extends Component {
     datasets: [
       {
         data: [93, 92.5, 92, 91.5, 91, 90.5, 90],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        color: (opacity = 1) => `rgba(255, 130, 67, ${opacity})`, // optional
         strokeWidth: 2, // optional
       },
     ],
@@ -69,7 +69,7 @@ export default class ResultScreen extends Component {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
 
-    this.setState({dataTime: date + '/' + month + '/' + year});
+    this.setState({dataTime: date + '.0' + month + '.' + year});
   }
 
   chartConfig = {
@@ -77,7 +77,7 @@ export default class ResultScreen extends Component {
     backgroundGradientFromOpacity: 0,
     backgroundGradientTo: '#08130D',
     backgroundGradientToOpacity: 0.5,
-    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    color: (opacity = 1) => `rgba(192, 192, 192, ${opacity})`,
     strokeWidth: 2, // optional, default 3
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
@@ -123,7 +123,7 @@ export default class ResultScreen extends Component {
               percent={this.state.percent}
               radius={50}
               borderWidth={8}
-              color="#b70000"
+              color="#ff8243"
               shadowColor="#708090"
               bgColor="#fff">
               <Text style={{fontSize: 28}}>{this.state.percent + '%'}</Text>
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
     borderColor: '#708090',
     borderWidth: 3,
     color: 'white',
+    fontFamily: 'Domine-Bold',
   },
   container: {
     width: 50,
@@ -185,16 +186,19 @@ const styles = StyleSheet.create({
   },
   weightText: {
     color: 'white',
+    fontFamily: 'Domine-Bold',
   },
   progressText: {
     fontSize: 15,
     margin: 15,
     color: 'white',
+    fontFamily: 'PermanentMarker-Regular',
   },
   dataText: {
     color: 'white',
     fontSize: 20,
     marginTop: 10,
+    fontFamily: 'Domine-Bold',
   },
   pack: {
     justifyContent: 'center',
@@ -204,7 +208,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     borderWidth: 1,
-    borderColor: '#b70000',
+    borderColor: '#ff8243',
   },
   progress: {
     justifyContent: 'center',

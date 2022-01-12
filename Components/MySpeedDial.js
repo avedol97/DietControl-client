@@ -44,7 +44,7 @@ const MySpeedDial = props => {
   const [open, setOpen] = React.useState(false);
   return (
     <SpeedDial
-      color="#b70000"
+      color="#ff8243"
       isOpen={open}
       icon={{name: 'edit', color: '#fff'}}
       openIcon={{name: 'close', color: '#fff'}}
@@ -52,7 +52,7 @@ const MySpeedDial = props => {
       onClose={() => setOpen(!open)}>
       <SpeedDial.Action
         icon={{name: 'add', color: '#fff'}}
-        color="#b70000"
+        color="#ff8243"
         title="Dodaj Produkt"
         onPress={() => {
           props.navigation.navigate('AddMeal');

@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     textAlign: 'center',
-    fontWeight: 'bold',
     color: 'white',
+    fontFamily: 'FrederickatheGreat-Regular',
   },
   icon: {
     position: 'absolute',

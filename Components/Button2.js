@@ -22,5 +22,6 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 30,
+    fontFamily: 'Domine-Bold',
   },
 });

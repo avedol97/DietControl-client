@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
   productText: {
     color: 'white',
     fontSize: 10,
+    fontFamily: 'Domine-Regular',
   },
 });

@@ -89,6 +89,7 @@ const DetailsScreen = ({navigation}) => {
         somatic,
       );
       const change = await serviceUser.changeDetails(id);
+      const detail = await AsyncStorage.setItem('isDetails', 'true');
       Alert.alert('Pomyślnie uzupełniono dane!');
       await navigation.navigate('Auth');
     }
@@ -105,6 +106,7 @@ const DetailsScreen = ({navigation}) => {
               fontSize: 25,
               margin: 20,
               color: 'white',
+              fontFamily: 'FrederickatheGreat-Regular',
             }}>
             TWOJE DANE
           </Text>
@@ -263,7 +265,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginBottom: -6,
     fontSize: 14,
-    color: 'white',
+    color: '#ff8243',
+    fontFamily: 'Domine-Bold',
   },
   background: {
     flex: 1,
@@ -282,6 +285,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: 14,
     color: 'white',
+    fontFamily: 'Exo2-ExtraLightItalic',
   },
   input: {
     margin: 10,
@@ -292,6 +296,7 @@ const styles = StyleSheet.create({
     borderColor: '#708090',
     borderWidth: 3,
     color: 'white',
+    fontFamily: 'Exo2-ExtraLightItalic',
   },
   picker: {
     width: 380,

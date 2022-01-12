@@ -80,13 +80,14 @@ const styles = StyleSheet.create({
     margin: 2,
     height: 30,
     borderWidth: 2,
-    backgroundColor: '#b70000',
+    backgroundColor: '#ff8243',
     borderColor: '#999999',
   },
   buttonText: {
     color: 'white',
     textAlign: 'center',
     fontSize: 19,
+    fontFamily: 'Domine-Bold'
   },
   box: {
     flex: 1,
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
     color: 'white',
+    fontFamily: 'Domine-Bold'
   },
   login__text: {
     width: 150,

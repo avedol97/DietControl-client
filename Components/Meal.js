@@ -6,7 +6,7 @@ export default function Meals(props) {
     <View style={styles.background}>
       <View style={styles.box2}>
         <View style={styles.box}>
-          <Text>{props.name}</Text>
+          <Text style={styles.nameText}>{props.name}</Text>
         </View>
 
         <TouchableOpacity onPress={() => props.fun()}>
@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     textAlign: 'center',
+    fontFamily: 'Exo2-Light',
   },
   button: {
     height: 20,
@@ -67,4 +68,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  nameText: {
+    fontFamily: 'Domine-SemiBold',
+
+  }
 });
