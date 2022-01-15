@@ -109,8 +109,8 @@ export default class SearchMealScreen extends Component {
             </View>
             <TextInput
               style={styles.searchInput}
-              showSoftInputOnFocus={false}
-              keyboardType="numeric"
+              // showSoftInputOnFocus={false}
+              // keyboardType="numeric"
               placeholder="Wpisz"
               placeholderTextColor="black"
               onChangeText={textToSearch => {
@@ -127,6 +127,7 @@ export default class SearchMealScreen extends Component {
                 onRefresh={this.onRefresh}
               />
             }>
+
             {!this.state.isLoading ? (
               this.renderProductList()
             ) : (
@@ -169,7 +170,8 @@ const styles = StyleSheet.create({
   eatText: {
     color: 'white',
     textAlign: 'center',
-    fontFamily: 'Exo2-Light',
+    padding: 3,
+    fontFamily: 'Domine-Regular',
   },
   search: {
     margin: 10,

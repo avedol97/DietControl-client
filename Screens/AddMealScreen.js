@@ -68,10 +68,10 @@ export default class AddMealScreen extends Component {
         <View style={styles.box}>
           <Text style={styles.mainText}>NAZWA</Text>
           <TextInput
-            placeholder="USTAW"
+            placeholder="WPISZ"
             placeholderTextColor="white"
-            showSoftInputOnFocus={false}
-            keyboardType="numeric"
+            // showSoftInputOnFocus={false}
+            // keyboardType="numeric"
             style={styles.input}
             onChangeText={name => this.setState({name: name})}
           />
@@ -96,9 +96,9 @@ export default class AddMealScreen extends Component {
             BIAŁKO [ 100{this.state.packaging}]
           </Text>
           <TextInput
-            placeholder="USTAW"
+            placeholder="WPISZ"
             placeholderTextColor="white"
-            showSoftInputOnFocus={false}
+            // showSoftInputOnFocus={false}
             keyboardType="numeric"
             style={styles.input}
             onChangeText={protein => this.setState({protein: protein})}
@@ -107,9 +107,9 @@ export default class AddMealScreen extends Component {
             TŁUSZCZ [ 100{this.state.packaging}]
           </Text>
           <TextInput
-            placeholder="USTAW"
+            placeholder="WPISZ"
             placeholderTextColor="white"
-            showSoftInputOnFocus={false}
+            // showSoftInputOnFocus={false}
             keyboardType="numeric"
             style={styles.input}
             onChangeText={fat => this.setState({fat: fat})}
@@ -118,9 +118,9 @@ export default class AddMealScreen extends Component {
             WĘGLOWODANY [ 100{this.state.packaging}]
           </Text>
           <TextInput
-            placeholder="USTAW"
+            placeholder="WPISZ"
             placeholderTextColor="white"
-            showSoftInputOnFocus={false}
+            // showSoftInputOnFocus={false}
             keyboardType="numeric"
             style={styles.input}
             onChangeText={carbohydrates =>
@@ -132,9 +132,9 @@ export default class AddMealScreen extends Component {
           </Text>
           <View style={styles.calorieBox}>
             <TextInput
-              placeholder=" USTAW"
+              placeholder="WPISZ"
               placeholderTextColor="white"
-              showSoftInputOnFocus={false}
+              // showSoftInputOnFocus={false}
               keyboardType="numeric"
               style={styles.inputCalorie}
               onChangeText={calories => this.setState({calories: calories})}
@@ -178,25 +178,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Domine-Bold',
   },
   input: {
+    fontSize: 15,
     margin: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingTop: 5,
     paddingBottom: 5,
     borderColor: '#708090',
     borderWidth: 3,
     color: 'white',
-    fontFamily: 'Exo2-ExtraLightItalic',
   },
   inputCalorie: {
     width: 265,
     margin: 5,
-    paddingLeft: 10,
+    paddingLeft: 15,
     paddingTop: 5,
     paddingBottom: 5,
     borderColor: '#708090',
     borderWidth: 3,
     color: 'white',
-    fontFamily: 'Exo2-ExtraLightItalic',
   },
   container: {
     margin: 5,

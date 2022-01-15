@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   top: {
     width: '100%',
-    height: '35%',
+    height: '30%',
   },
   down: {
     margin: 0,
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
     marginLeft: 220,
     color: 'white',
     fontSize: 25,
-    fontFamily: 'PermanentMarker-Regular',
+    fontFamily: 'Domine-Bold',
   },
   menu: {
     color: '#ff8243',

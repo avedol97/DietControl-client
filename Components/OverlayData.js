@@ -46,9 +46,8 @@ const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = () => {
         <Text style={styles.mainText}>WAGA [kg]</Text>
         <TextInput
           onChangeText={weight => setWeight(weight)}
-          textAlign={'center'}
           style={styles.input}
-          placeholder="   OCBECNA WAGA"
+          placeholder="WPISZ"
           placeholderTextColor="white"
         />
         <Text style={styles.mainText}>AKTYWNOŚĆ</Text>
@@ -64,7 +63,7 @@ const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = () => {
           <Picker.Item label="BARDZO AKTYWNY TRYB ŻYCIA" value="1.8" />
           <Picker.Item label="WYCZYNOWY TRYB ŻYCIA" value="2.0" />
         </Picker>
-      <Text style={styles.mainText}>CEL</Text>
+        <Text style={styles.mainText}>CEL</Text>
         <Picker
           selectedValue={purpose}
           style={styles.picker}
@@ -105,7 +104,7 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 19,
-    fontFamily: 'Domine-Bold'
+    fontFamily: 'Domine-Bold',
   },
   input: {
     width: 300,
@@ -114,7 +113,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     color: 'white',
-    fontFamily: 'Domine-Bold',
+    fontSize: 16,
+    paddingLeft: 15,
   },
   picker: {
     color: 'white',
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   mainText: {
     margin: 10,
     fontFamily: 'Domine-Bold',
-  }
+  },
 });
 
 export default OverlayComponent;

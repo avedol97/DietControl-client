@@ -23,13 +23,13 @@ export default class StartScreen extends Component {
           <TouchableOpacity
             style={styles.button2}
             onPress={() => this.props.navigation.navigate('Login')}>
-            <Text style={styles.text}>Logowanie</Text>
+            <Text style={styles.text}>LOGOWANIE</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.button3}
             onPress={() => this.props.navigation.navigate('Register')}>
-            <Text style={styles.text}>Rejestracja</Text>
+            <Text style={styles.text}>REJESTRACJA</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.triangleCornerBottom} />
@@ -112,8 +112,8 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     padding: 30,
-    fontSize: 20,
-    fontFamily: 'PermanentMarker-Regular',
+    fontSize: 19,
+    fontFamily: 'Domine-Bold',
   },
   main: {
     height: '0%',

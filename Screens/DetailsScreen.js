@@ -31,7 +31,7 @@ const DetailsScreen = ({navigation}) => {
 
   const [activity, setActivity] = useState();
   const [purpose, setPurpose] = useState();
-  const [somatic, setSomatic] = useState('STANDARD');
+  const [somatic, setSomatic] = useState('test');
 
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
@@ -106,7 +106,7 @@ const DetailsScreen = ({navigation}) => {
               fontSize: 25,
               margin: 20,
               color: 'white',
-              fontFamily: 'FrederickatheGreat-Regular',
+              fontFamily: 'Domine-Bold',
             }}>
             TWOJE DANE
           </Text>
@@ -137,17 +137,17 @@ const DetailsScreen = ({navigation}) => {
           </View>
           <Text style={styles.mainText}>WZROST[CM]</Text>
           <TextInput
-            placeholder="USTAW WZROST"
+            placeholder="WPISZ"
             placeholderTextColor="white"
-            showSoftInputOnFocus={false}
+            // showSoftInputOnFocus={false}
             keyboardType="numeric"
             style={styles.input}
             onChangeText={height => setHeight(height)}
           />
           <Text style={styles.mainText}>WAGA[KG]</Text>
           <TextInput
-            placeholder=" USTAW WAGĘ"
-            showSoftInputOnFocus={false}
+            placeholder="WPISZ"
+            // showSoftInputOnFocus={false}
             keyboardType="numeric"
             placeholderTextColor="white"
             style={styles.input}
@@ -200,39 +200,39 @@ const DetailsScreen = ({navigation}) => {
               <Picker.Item label="BUDOWA MIĘŚNI" value="1" />
             </Picker>
           </View>
-          <Text style={styles.mainText}>SOMATOTYP</Text>
-          <View style={styles.radioBox}>
-            <View style={styles.radio}>
-              <RadioButton
-                value="EKTOMORFIK"
-                status={somatic === 'EKTOMORFIK' ? 'checked' : 'unchecked'}
-                onPress={() => setSomatic('EKTOMORFIK')}
-                color={'white'}
-                uncheckedColor={'white'}
-              />
-              <Text style={styles.radioText}>EKTOMORFIK</Text>
-            </View>
-            <View style={styles.radio}>
-              <RadioButton
-                value="MEZOMORFIK"
-                status={somatic === 'MEZOMORFIK' ? 'checked' : 'unchecked'}
-                onPress={() => setSomatic('MEZOMORFIK')}
-                uncheckedColor={'white'}
-                color={'white'}
-              />
-              <Text style={styles.radioText}>MEZOMORFIK</Text>
-            </View>
-            <View style={styles.radio}>
-              <RadioButton
-                value="ENDOMORFIK"
-                status={somatic === 'ENDOMORFIK' ? 'checked' : 'unchecked'}
-                onPress={() => setSomatic('ENDOMORFIK')}
-                uncheckedColor={'white'}
-                color={'white'}
-              />
-              <Text style={styles.radioText}>ENDOMORFIK</Text>
-            </View>
-          </View>
+          {/*<Text style={styles.mainText}>SOMATOTYP</Text>*/}
+          {/*<View style={styles.radioBox}>*/}
+          {/*  <View style={styles.radio}>*/}
+          {/*    <RadioButton*/}
+          {/*      value="EKTOMORFIK"*/}
+          {/*      status={somatic === 'EKTOMORFIK' ? 'checked' : 'unchecked'}*/}
+          {/*      onPress={() => setSomatic('EKTOMORFIK')}*/}
+          {/*      color={'white'}*/}
+          {/*      uncheckedColor={'white'}*/}
+          {/*    />*/}
+          {/*    <Text style={styles.radioText}>EKTOMORFIK</Text>*/}
+          {/*  </View>*/}
+          {/*  <View style={styles.radio}>*/}
+          {/*    <RadioButton*/}
+          {/*      value="MEZOMORFIK"*/}
+          {/*      status={somatic === 'MEZOMORFIK' ? 'checked' : 'unchecked'}*/}
+          {/*      onPress={() => setSomatic('MEZOMORFIK')}*/}
+          {/*      uncheckedColor={'white'}*/}
+          {/*      color={'white'}*/}
+          {/*    />*/}
+          {/*    <Text style={styles.radioText}>MEZOMORFIK</Text>*/}
+          {/*  </View>*/}
+          {/*  <View style={styles.radio}>*/}
+          {/*    <RadioButton*/}
+          {/*      value="ENDOMORFIK"*/}
+          {/*      status={somatic === 'ENDOMORFIK' ? 'checked' : 'unchecked'}*/}
+          {/*      onPress={() => setSomatic('ENDOMORFIK')}*/}
+          {/*      uncheckedColor={'white'}*/}
+          {/*      color={'white'}*/}
+          {/*    />*/}
+          {/*    <Text style={styles.radioText}>ENDOMORFIK</Text>*/}
+          {/*  </View>*/}
+          {/*</View>*/}
           <Button
             text="ZAPISZ"
             fun={() =>
@@ -266,7 +266,6 @@ const styles = StyleSheet.create({
     marginBottom: -6,
     fontSize: 14,
     color: '#ff8243',
-    fontFamily: 'Domine-Bold',
   },
   background: {
     flex: 1,
@@ -285,7 +284,6 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: 14,
     color: 'white',
-    fontFamily: 'Exo2-ExtraLightItalic',
   },
   input: {
     margin: 10,
@@ -296,7 +294,6 @@ const styles = StyleSheet.create({
     borderColor: '#708090',
     borderWidth: 3,
     color: 'white',
-    fontFamily: 'Exo2-ExtraLightItalic',
   },
   picker: {
     width: 380,

@@ -44,25 +44,28 @@ const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = () => {
         <Text style={styles.buttonText}>Zmień Hasło</Text>
       </TouchableOpacity>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
+        <Text style={styles.mainText}>AKTUALNE HASŁO</Text>
         <TextInput
           onChangeText={oldPassword => setOldPassword(oldPassword)}
           secureTextEntry={true}
           style={styles.login__input}
-          placeholder="Aktualne Hasło"
+          placeholder="WPISZ"
           placeholderTextColor="white"
         />
+        <Text style={styles.mainText}>NOWE HASŁO</Text>
         <TextInput
           onChangeText={password => setPassword(password)}
           secureTextEntry={true}
           style={styles.login__input}
-          placeholder="Nowe Hasło"
+          placeholder="WPISZ"
           placeholderTextColor="white"
         />
+        <Text style={styles.mainText}>POWTÓRZ NOWE HASŁO</Text>
         <TextInput
           onChangeText={repeatPassword => setRepeatPassword(repeatPassword)}
           secureTextEntry={true}
           style={styles.login__input}
-          placeholder="Powtórz Nowe Hasło"
+          placeholder="WPISZ"
           placeholderTextColor="white"
         />
         <TouchableOpacity
@@ -77,8 +80,8 @@ const OverlayComponent: React.FunctionComponent<OverlayComponentProps> = () => {
 
 const styles = StyleSheet.create({
   button: {
-    margin: 2,
-    height: 30,
+    margin: 5,
+    height: 35,
     borderWidth: 2,
     backgroundColor: '#ff8243',
     borderColor: '#999999',
@@ -86,8 +89,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     textAlign: 'center',
+    marginTop: 5,
     fontSize: 19,
-    fontFamily: 'Domine-Bold'
+    fontFamily: 'Domine-Bold',
   },
   box: {
     flex: 1,
@@ -96,14 +100,13 @@ const styles = StyleSheet.create({
   },
   login__input: {
     width: 300,
-    height: 40,
+    height: 50,
     backgroundColor: '#999999',
     borderWidth: 1,
     borderColor: 'white',
-    marginTop: 15,
-    marginBottom: 15,
+
     color: 'white',
-    fontFamily: 'Domine-Bold'
+    paddingLeft: 15,
   },
   login__text: {
     width: 150,
@@ -112,6 +115,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     textAlign: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  mainText: {
+    margin: 10,
+    fontFamily: 'Domine-Bold',
   },
 });
 

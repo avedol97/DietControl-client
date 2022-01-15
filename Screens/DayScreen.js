@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DetailsService from '../services/DetailsService';
 import BalanceService from '../services/BalanceService';
 
+
 const service = new DetailsService();
 const serviceBalance = new BalanceService();
 
@@ -59,6 +60,7 @@ export default class DayScreen extends Component {
         name: 'Białko',
         population: b,
         color: '#708090',
+        fontFamily: 'Domine-Bold',
         legendFontColor: '#7F7F7F',
         legendFontSize: 15,
       },
@@ -77,6 +79,7 @@ export default class DayScreen extends Component {
         legendFontSize: 15,
       },
     ];
+
     await AsyncStorage.setItem('wykres', JSON.stringify(data));
     await AsyncStorage.setItem('kcal', JSON.stringify(kcal));
   }

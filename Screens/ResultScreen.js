@@ -7,6 +7,8 @@ import {Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../Components/Button3';
 import ProgressCircle from 'react-native-progress-circle';
+import {format} from 'date-fns';
+const subDays = require('date-fns/subDays');
 
 export default class ResultScreen extends Component {
   constructor() {
@@ -21,24 +23,39 @@ export default class ResultScreen extends Component {
       wToday: 0,
       data: [],
       percent: 0,
+      days: [],
     };
   }
 
-  data = {
-    labels: ['02/01', '03/01', '04/01', '05/01', '06/01', '07/01', '08/01'],
+
+
+  temp = {
+    labels: [
+      format(subDays(new Date(), 7), 'dd/MM').toString(),
+      format(subDays(new Date(), 6), 'dd/MM').toString(),
+      format(subDays(new Date(), 7), 'dd/MM').toString(),
+      format(subDays(new Date(), 4), 'dd/MM').toString(),
+      format(subDays(new Date(), 3), 'dd/MM').toString(),
+      format(subDays(new Date(), 2), 'dd/MM').toString(),
+      format(subDays(new Date(), 1), 'dd/MM').toString(),
+    ],
     datasets: [
       {
         data: [93, 92.5, 92, 91.5, 91, 90.5, 90],
-        color: (opacity = 1) => `rgba(255, 130, 67, ${opacity})`, // optional
-        strokeWidth: 2, // optional
+        color: (opacity = 1) => `rgba(255, 130, 67, ${opacity})`,
+        strokeWidth: 2,
       },
     ],
-    legend: ['Ostatnie 7 dni'], // optional
+    legend: ['Ostatnie 7 dni'],
   };
+
+
+
 
   componentDidMount() {
     this.getDateAsync();
     this.getCurrentDate();
+
   }
 
   async getDateAsync() {
@@ -56,6 +73,7 @@ export default class ResultScreen extends Component {
       tToday: await AsyncStorage.getItem('t'),
       wToday: await AsyncStorage.getItem('w'),
       data: JSON.parse(await AsyncStorage.getItem('wykres')),
+
     });
   }
 
@@ -126,7 +144,9 @@ export default class ResultScreen extends Component {
               color="#ff8243"
               shadowColor="#708090"
               bgColor="#fff">
-              <Text style={{fontSize: 28}}>{this.state.percent + '%'}</Text>
+              <Text style={{fontSize: 28, fontFamily: 'Domine-Bold'}}>
+                {this.state.percent + '%'}
+              </Text>
             </ProgressCircle>
 
             <Text style={styles.progressText}>
@@ -144,7 +164,7 @@ export default class ResultScreen extends Component {
             />
             <Text style={styles.progressText}>Waga</Text>
             <LineChart
-              data={this.data}
+              data={this.temp}
               width={screenWidth}
               height={220}
               chartConfig={this.chartConfig}
@@ -192,7 +212,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     margin: 15,
     color: 'white',
-    fontFamily: 'PermanentMarker-Regular',
+    fontFamily: 'Domine-Bold',
   },
   dataText: {
     color: 'white',

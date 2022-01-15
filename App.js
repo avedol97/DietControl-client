@@ -30,6 +30,7 @@ export default class App extends Component {
     return (
       <Tab.Navigator
         initialRouteName="TestScreen"
+        fontFamily="Domine-Bold"
         activeColor="#ff8243"
         inactiveColor="#fff"
         barStyle={{backgroundColor: '#2d2e30'}}
@@ -177,6 +178,5 @@ export default class App extends Component {
 
   render() {
     return <NavigationContainer>{this.RootStackScreen()}</NavigationContainer>;
-    // return <NavigationContainer>{this.Menu()}</NavigationContainer>;
   }
 }

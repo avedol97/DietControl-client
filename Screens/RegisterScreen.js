@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     marginLeft: 220,
     color: 'white',
     fontSize: 25,
-    fontFamily: 'PermanentMarker-Regular',
+    fontFamily: 'Domine-Bold',
   },
   menu: {
     color: '#ff8243',

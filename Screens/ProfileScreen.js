@@ -14,6 +14,7 @@ export default class ProfileScreen extends Component {
       isLoading: false,
       details: null,
       email: '',
+      gender: '',
     };
   }
 
@@ -22,11 +23,19 @@ export default class ProfileScreen extends Component {
   }
 
   async getAsync() {
-    const details = await AsyncStorage.getItem('details');
+    let temp;
+    const details = JSON.parse(await AsyncStorage.getItem('details'));
     const email = await AsyncStorage.getItem('email');
 
+    if (details.gender === 'Men') {
+      temp = 'Mężczyzna';
+    } else {
+      temp = 'Kobieta';
+    }
+
     this.setState({
-      details: JSON.parse(details),
+      details: details,
+      gender: temp,
       email: email,
       isLoading: true,
     });
@@ -54,7 +63,7 @@ export default class ProfileScreen extends Component {
             <View style={styles.box}>
               <Text style={styles.tableText}>Płeć:</Text>
             </View>
-            <Text style={styles.tableText}>{this.state.details.gender}</Text>
+            <Text style={styles.tableText}>{this.state.gender}</Text>
           </View>
           <View style={styles.table}>
             <View style={styles.box}>
@@ -140,13 +149,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 15,
-    fontFamily: 'PermanentMarker-Regular',
+    fontFamily: 'Domine-Bold',
   },
   email: {
     fontSize: 20,
     color: 'white',
     marginBottom: 30,
-    fontFamily: 'PermanentMarker-Regular',
+    fontFamily: 'Domine-Bold',
   },
   box: {
     width: 170,

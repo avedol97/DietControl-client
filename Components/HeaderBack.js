@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     textAlign: 'center',
     color: 'white',
-    fontFamily: 'FrederickatheGreat-Regular',
+    fontFamily: 'Domine-Bold',
   },
   icon: {
     position: 'absolute',
